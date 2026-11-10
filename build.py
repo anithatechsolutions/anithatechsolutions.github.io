@@ -684,7 +684,6 @@ def build_home():
   <canvas id="hero3d" aria-hidden="true" data-apps='{hero_apps}'></canvas>
   <div class="container">
     <div>
-      <div class="eyebrow">Odoo ERP &amp; Mobile Apps</div>
       <h1><span class="line">Many systems.</span> <span class="line accent">One platform.</span></h1>
       <p class="typed-line">Built for your <span class="typed" data-words="sales team|warehouse|finance team|field staff|managers|customers">sales team</span></p>
       <p class="lead">Sales, inventory, accounting, manufacturing, HR and your field teams — connected on Odoo. {BRAND} implements, customizes, migrates and supports Odoo ERP, and builds the Android and iOS apps that take it on the road.</p>
