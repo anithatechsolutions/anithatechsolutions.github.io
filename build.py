@@ -6,6 +6,7 @@ Edit the settings and page content below, then run:
 The finished site is written to ./public — upload that folder to any static host
 (Netlify, Cloudflare Pages, GitHub Pages, cPanel, Nginx ...).
 """
+import hashlib
 import json
 import shutil
 from datetime import date
@@ -18,6 +19,9 @@ BRAND = 'Anitha Techsolutions'
 LEGAL = 'Anitha Tech Solutions Pvt. Ltd.'
 EMAIL = 'anithatechsolutions@gmail.com'
 TAGLINE = 'Odoo ERP & Mobile App Development Company'
+# Contact form delivery (no backend needed). FormSubmit works with just the email address;
+# to use Formspree instead, set this to 'https://formspree.io/f/<your-form-id>'.
+FORM_ENDPOINT = f'https://formsubmit.co/ajax/{EMAIL}'
 APP_STORE_URL = ''                          # Odoo Apps Store link for Sale Order Split, once published
 UPDATED = date.today().isoformat()
 
@@ -1045,14 +1049,15 @@ def build_contact():
       <li>The processes or features you need</li><li>Your preferred timeline</li></ul>
   </div>
   <div class="card reveal d1">
-    <form class="form" id="contact-form" data-to="{EMAIL}">
+    <form class="form" id="contact-form" data-to="{EMAIL}" data-endpoint="{FORM_ENDPOINT}" novalidate>
+      <label class="hp" aria-hidden="true">Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label>
       <div class="two"><label>Name<input name="name" required autocomplete="name"></label><label>Email<input name="email" type="email" required autocomplete="email"></label></div>
       <div class="two"><label>Company<input name="company" autocomplete="organization"></label><label>Phone<input name="phone" type="tel" autocomplete="tel"></label></div>
       <label>Service<select name="service">{opts}</select></label>
       <label>Message<textarea name="message" required placeholder="Tell us about your project, Odoo version and timeline"></textarea></label>
       <button class="btn" type="submit" style="justify-self:start">Send message {icon('arrow')}</button>
-      <p class="note">Sending opens your email app with the message filled in, addressed to {EMAIL}.</p>
-      <p class="note" id="form-done" hidden>Your email app should now be open. If it isn't, email us directly at <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+      <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
+      <p class="note">Or email us directly at <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
     </form>
   </div>
 </div></section>
@@ -1111,9 +1116,11 @@ def main():
                   {'src': '/img/favicon/favicon-512.png', 'sizes': '512x512', 'type': 'image/png'},
                   {'src': '/img/favicon/favicon-512.png', 'sizes': '512x512', 'type': 'image/png', 'purpose': 'maskable'}],
     }, indent=2))
+    # cache name changes whenever CSS/JS change, so returning visitors get the new files
+    asset_version = hashlib.sha1(b''.join(f.read_bytes() for f in sorted((OUT / 'css').glob('*')) + sorted((OUT / 'js').glob('*')))).hexdigest()[:10]
     core = ['/', '/css/style.css', '/js/main.js', '/img/logo/logo-reversed.svg', '/img/logo/logo-primary.svg', '/offline.html']
     (OUT / 'sw.js').write_text(f'''// Service worker: makes the site installable and readable offline.
-const CACHE = 'anitha-{UPDATED}';
+const CACHE = 'anitha-{asset_version}';
 const CORE = {json.dumps(core)};
 self.addEventListener('install', e => {{ e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); }});
 self.addEventListener('activate', e => {{ e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); }});

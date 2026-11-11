@@ -42,15 +42,40 @@
   // Contact form -> opens the visitor's email app with the details filled in
   var form = document.getElementById('contact-form');
   if (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var f = form.elements;
+    var status = document.getElementById('form-status');
+    var button = form.querySelector('button[type="submit"]');
+    var buttonHTML = button.innerHTML;
+    function show(kind, html) { status.className = 'form-status ' + kind; status.innerHTML = html; status.hidden = false; }
+    function mailtoFallback(f) {
       var subject = 'Enquiry: ' + f.service.value + ' - ' + f.name.value;
       var body = 'Name: ' + f.name.value + '\nEmail: ' + f.email.value + '\nCompany: ' + (f.company.value || '-') +
         '\nPhone: ' + (f.phone.value || '-') + '\nService: ' + f.service.value + '\n\n' + f.message.value;
-      window.location.href = 'mailto:' + form.dataset.to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-      var done = document.getElementById('form-done');
-      if (done) done.hidden = false;
+      return 'mailto:' + form.dataset.to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      var f = form.elements;
+      if (f.website.value) { form.reset(); show('ok', 'Thank you — your message has been sent.'); return; } // bot
+      var data = {
+        name: f.name.value, email: f.email.value, company: f.company.value || '-', phone: f.phone.value || '-',
+        service: f.service.value, message: f.message.value,
+        _subject: 'Website enquiry: ' + f.service.value + ' - ' + f.name.value,
+        _replyto: f.email.value, _template: 'table', _captcha: 'false'
+      };
+      button.disabled = true; button.textContent = 'Sending…'; status.hidden = true;
+      fetch(form.dataset.endpoint, {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data)
+      }).then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (j) {
+          if (!res.ok || j.success === 'false' || j.success === false || j.errors) throw new Error(j.message || 'Send failed');
+        });
+      }).then(function () {
+        form.reset();
+        show('ok', '<b>Thank you!</b> Your message has been sent. We will reply within one business day.');
+      }).catch(function () {
+        show('err', 'Sorry, the message could not be sent. Please <a href="' + mailtoFallback(f) + '">send it by email instead</a> or write to <a href="mailto:' + form.dataset.to + '">' + form.dataset.to + '</a>.');
+      }).then(function () { button.disabled = false; button.innerHTML = buttonHTML; });
     });
   }
 
