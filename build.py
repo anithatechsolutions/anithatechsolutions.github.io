@@ -3,7 +3,7 @@
 
 Edit the settings and page content below, then run:
     python3 build.py
-The finished site is written to ./public — upload that folder to any static host
+The finished site is written to ./public. Upload that folder to any static host
 (Netlify, Cloudflare Pages, GitHub Pages, cPanel, Nginx ...).
 """
 import hashlib
@@ -94,7 +94,7 @@ SERVICES = [
      ['Payment gateways and bank statement feeds', 'eCommerce, marketplace and shipping carriers',
       'REST / JSON-RPC / XML-RPC APIs and webhooks', 'Data sync with legacy ERP, CRM and BI tools']),
     ('odoo-consulting', 'compass', 'Odoo Functional Consulting',
-     'Practical advice on how to run your processes in Odoo — before you spend on development.',
+     'Practical advice on how to run your processes in Odoo, before you spend on development.',
      ['Process mapping and best-practice recommendations', 'Choosing between configuration, apps and custom code',
       'Edition, hosting and licensing guidance', 'Project planning and phased roadmaps']),
     ('odoo-support', 'support', 'Odoo Support & Maintenance (AMC)',
@@ -102,7 +102,7 @@ SERVICES = [
      ['Bug fixing and functional support', 'Small enhancements and report changes',
       'Module updates and security patches', 'Annual maintenance contracts']),
     ('odoo-hosting', 'server', 'Odoo Hosting, Server Setup & Performance Tuning',
-     'Reliable Odoo servers on Odoo.sh, cloud VPS or on-premise — fast, secure and backed up.',
+     'Reliable Odoo servers on Odoo.sh, cloud VPS or on-premise. Fast, secure and backed up.',
      ['Odoo.sh, AWS, Azure, DigitalOcean and on-premise setup', 'Odoo workers, PostgreSQL and Nginx tuning',
       'SSL, firewall and security hardening', 'Automated backups and monitoring']),
     ('odoo-reports', 'chart', 'Odoo Reports & Dashboards',
@@ -128,7 +128,7 @@ SERVICES = [
 
 MOBILE_FEATURES = [
     ('phone', 'Android & iOS from one codebase', 'Cross-platform Flutter apps that look and feel native on both platforms.'),
-    ('plug', 'Live Odoo connection', 'Apps read and write directly to your Odoo through secure APIs — no double entry.'),
+    ('plug', 'Live Odoo connection', 'Apps read and write directly to your Odoo through secure APIs, so there is no double entry.'),
     ('wifi-off', 'Offline mode', 'Field teams keep working without signal; data syncs automatically when back online.'),
     ('bell', 'Push notifications', 'Alerts for approvals, new orders, deliveries and reminders.'),
     ('scan', 'Barcode & camera', 'Scan products, capture photos and signatures right from the phone.'),
@@ -153,7 +153,7 @@ WHY = [
     ('layers', 'Odoo specialists', 'We work with Odoo every day, across versions 12 to 20, Community and Enterprise.'),
     ('code', 'Clean, standard code', 'Modules follow OCA guidelines and include tests, so upgrades stay simple.'),
     ('target', 'Clear scope & estimates', 'You know what will be delivered, when, and what it costs before work starts.'),
-    ('users', 'Direct developer access', 'Talk to the people building your solution — no long chains of hand-offs.'),
+    ('users', 'Direct developer access', 'Talk to the people building your solution, without long chains of hand-offs.'),
     ('phone', 'ERP + mobile in one team', 'Odoo and the mobile apps that connect to it come from the same team.'),
     ('shield', 'Support after go-live', 'We stay with you after launch with support, fixes and improvements.'),
 ]
@@ -168,7 +168,7 @@ PROCESS = [
 
 HOME_FAQ = [
     ('What Odoo services does Anitha Techsolutions provide?',
-     'We provide Odoo implementation, customization and module development, migration and upgrades, integrations, hosting and performance tuning, reports, localization, training, and ongoing support — plus mobile apps connected to Odoo.'),
+     'We provide Odoo implementation, customization and module development, migration and upgrades, integrations, hosting and performance tuning, reports, localization, training, and ongoing support, plus mobile apps connected to Odoo.'),
     ('Which Odoo versions do you work with?',
      'We work with Odoo 12 through Odoo 20, on both Community and Enterprise editions, hosted on Odoo.sh, cloud servers or on-premise.'),
     ('Can you build a mobile app that connects to our Odoo?',
@@ -188,7 +188,7 @@ POSTS = [
         'date': '2026-11-10',
         'tags': ['Odoo Sales', 'Odoo Apps'],
         'body': f'''
-<p>Customers often change their minds after a quotation is sent: part of the order is needed now, the rest next month; one branch takes some items, another takes the rest. Standard Odoo has no button to divide a quotation, so teams end up duplicating orders and editing quantities by hand — which is slow and easy to get wrong.</p>
+<p>Customers often change their minds after a quotation is sent: part of the order is needed now, the rest next month; one branch takes some items, another takes the rest. Standard Odoo has no button to divide a quotation, so teams end up duplicating orders and editing quantities by hand, which is slow and easy to get wrong.</p>
 <p>This guide shows how to split a sale order in Odoo 18, 19 and 20 in a few clicks using our <a href="../../odoo-apps/">Sale Order Split</a> app.</p>
 <h2>What "splitting a sale order" means</h2>
 <p>You choose how much of each product moves to a <strong>new quotation</strong>. The <strong>original quotation</strong> is reduced by the same amount. Unit price, discount and taxes stay the same on both orders, so the two totals add up exactly to the original total.</p>
@@ -207,7 +207,7 @@ POSTS = [
 <li>You cannot move more than the ordered quantity, and at least one line (or part of one) must stay on the original order.</li>
 <li>Sections, notes and down payment lines stay on the original order.</li>
 </ul>
-<blockquote>Need to split confirmed orders, or split into more than two orders at once? We can customize the app for your workflow — <a href="../../contact/">get in touch</a>.</blockquote>
+<blockquote>Need to split confirmed orders, or split into more than two orders at once? We can customize the app for your workflow. <a href="../../contact/">Get in touch</a>.</blockquote>
 ''',
     },
     {
@@ -222,7 +222,7 @@ POSTS = [
 <h2>1. Audit what you have</h2>
 <ul>
 <li>List every installed module and mark each one as <em>standard</em>, <em>third-party</em> (Odoo Apps Store / OCA) or <em>custom</em>.</li>
-<li>Uninstall modules nobody uses — every module you drop is one less to migrate.</li>
+<li>Uninstall modules nobody uses. Every module you drop is one less to migrate.</li>
 <li>Check whether each third-party module is available for the target version.</li>
 </ul>
 <h2>2. Upgrade the database on a copy</h2>
@@ -235,7 +235,7 @@ POSTS = [
 <li>Renamed fields, for example <code>product_uom</code> → <code>product_uom_id</code> and <code>tax_id</code> → <code>tax_ids</code> on sale order lines (Odoo 19).</li>
 <li>Access rights moving to the new <code>ir.access</code> model (Odoo 20).</li>
 </ul>
-<p>Run each module's automated tests on the new version — they catch most porting mistakes early.</p>
+<p>Run each module's automated tests on the new version. They catch most porting mistakes early.</p>
 <h2>4. Validate the data</h2>
 <ul>
 <li>Compare key figures before and after: trial balance, stock valuation, open receivables and payables.</li>
@@ -266,7 +266,7 @@ POSTS = [
 <h2>1. Run Odoo in multi-worker mode</h2>
 <p>By default Odoo runs in a single process. In production, set <code>workers</code> in the config file so requests are handled in parallel. A common starting point is <strong>(CPU cores × 2) + 1</strong>, then adjust to the available RAM.</p>
 <ul>
-<li><code>max_cron_threads</code>: usually 1–2, so scheduled jobs don't starve user requests.</li>
+<li><code>max_cron_threads</code>: usually 1 or 2, so scheduled jobs don't starve user requests.</li>
 <li><code>limit_memory_soft</code> / <code>limit_memory_hard</code>: recycle a worker that grows too large instead of letting the server swap.</li>
 <li><code>limit_time_cpu</code> / <code>limit_time_real</code>: stop runaway requests; raise them only for known heavy reports.</li>
 <li><code>proxy_mode = True</code> when Odoo runs behind Nginx.</li>
@@ -275,9 +275,9 @@ POSTS = [
 <p>PostgreSQL's default settings are very conservative. Typical starting values on a dedicated server:</p>
 <ul>
 <li><code>shared_buffers</code> ≈ 25% of RAM.</li>
-<li><code>effective_cache_size</code> ≈ 50–75% of RAM.</li>
-<li><code>work_mem</code>: modest (for example 16–64 MB), because it applies per sort operation.</li>
-<li><code>max_connections</code>: enough for all Odoo workers plus cron and maintenance — Odoo's <code>db_maxconn</code> should stay below it.</li>
+<li><code>effective_cache_size</code> ≈ 50 to 75% of RAM.</li>
+<li><code>work_mem</code>: modest (for example 16 to 64 MB), because it applies per sort operation.</li>
+<li><code>max_connections</code>: enough for all Odoo workers plus cron and maintenance. Odoo's <code>db_maxconn</code> should stay below it.</li>
 </ul>
 <p>Also make sure autovacuum is running and look at slow-query logs to find missing indexes in custom modules.</p>
 <h2>3. Put Nginx in front of Odoo</h2>
@@ -297,13 +297,13 @@ POSTS = [
 # ── Extra content (added in content pass) ───────────────────────────────────
 SERVICE_DETAIL = {
     'odoo-implementation': ('Businesses moving to Odoo from spreadsheets, Tally, QuickBooks or another ERP.',
-                            'One system for sales, stock, accounts and people — live in weeks, not years, with your team trained to use it.'),
+                            'One system for sales, stock, accounts and people, live in weeks (not years) with your team trained to use it.'),
     'odoo-customization': ('Companies whose processes go beyond what standard Odoo offers.',
                            'Odoo that fits the way you work, with code that stays easy to maintain and upgrade.'),
     'odoo-migration': ('Teams on an older Odoo version, or on Community and ready for Enterprise.',
                        'The latest Odoo features and security fixes, with your history and customizations carried over.'),
     'odoo-integration': ('Businesses that use Odoo next to online stores, payment providers, couriers or in-house software.',
-                         'Data flows automatically between systems — no copy-paste, fewer errors, faster month-end.'),
+                         'Data flows automatically between systems: no copy-paste, fewer errors, faster month-end.'),
     'odoo-consulting': ('Decision-makers planning a new Odoo project or rescuing one that has stalled.',
                         'A clear, realistic plan before you invest in development or licences.'),
     'odoo-support': ('Companies already live on Odoo that want a reliable team on call.',
@@ -315,7 +315,7 @@ SERVICE_DETAIL = {
     'odoo-localization': ('Companies that must comply with local tax and invoicing rules.',
                           'Correct taxes, compliant invoices and tax reports ready for filing.'),
     'odoo-website-ecommerce': ('Businesses that want their website and online shop connected to stock and accounting.',
-                               'Online orders flow straight into Odoo — stock, invoicing and delivery stay in sync.'),
+                               'Online orders flow straight into Odoo, and stock, invoicing and delivery stay in sync.'),
     'odoo-training': ('Teams going live on Odoo, new joiners, and admins who manage the system.',
                       'Confident users, fewer support questions and better use of what you paid for.'),
     'odoo-apps': ('Odoo users who need a specific feature quickly and affordably.',
@@ -372,14 +372,14 @@ SERVICES_FAQ = [
     ('How much does Odoo customization cost?',
      'Customization is estimated per requirement. After a short discussion we share a written estimate with scope and effort, so you know the cost before any work starts.'),
     ('Will customizations break when we upgrade Odoo?',
-     'We build custom modules as separate add-ons that follow Odoo and OCA standards, without changing Odoo core. That keeps upgrades manageable — and we port the modules for you when you upgrade.'),
+     'We build custom modules as separate add-ons that follow Odoo and OCA standards, without changing Odoo core. That keeps upgrades manageable, and we port the modules for you when you upgrade.'),
     ('Can you work on our Odoo.sh or on-premise server?',
      'Yes. We work on Odoo.sh, Odoo Online (configuration only), cloud servers and on-premise installations.'),
 ]
 
 MOBILE_FAQ = [
     ('Do you build separate apps for Android and iOS?',
-     'No — we use Flutter, so one codebase produces both the Android and iOS app. That keeps cost and maintenance lower while the apps still feel native.'),
+     'No. We use Flutter, so one codebase produces both the Android and iOS app. That keeps cost and maintenance lower while the apps still feel native.'),
     ('How does the app connect to Odoo?',
      "Through Odoo's external APIs over HTTPS, using the user's own Odoo access rights. For Odoo 19 and later we use the new JSON-2 API with API keys."),
     ('Will the app work without internet?',
@@ -411,19 +411,19 @@ POSTS += [
 <p>Community already covers a lot of day-to-day business: Sales and CRM, Purchase, Inventory, Invoicing, Manufacturing, Point of Sale, Project, Website and eCommerce, Employees and more. Many small and mid-sized companies run entirely on Community, extended with custom modules or apps from the Odoo Apps Store.</p>
 <h2>What Enterprise adds</h2>
 <ul>
-<li><strong>Full Accounting</strong> — bank synchronization, reconciliation tools and financial reports, beyond Community's invoicing.</li>
+<li><strong>Full Accounting</strong>: bank synchronization, reconciliation tools and financial reports, beyond Community's invoicing.</li>
 <li><strong>Extra apps</strong> such as Studio (no-code customization), Helpdesk, Field Service, Planning, Sign, Documents and Knowledge.</li>
 <li><strong>Official upgrade service</strong> for moving your database to new versions.</li>
 <li><strong>Odoo.sh and Odoo Online</strong> hosting options, plus Odoo's official mobile app and support.</li>
 </ul>
 <h2>Hosting and upgrades</h2>
-<p>Community can be hosted anywhere — your own server or any cloud — and upgraded with community tools such as OpenUpgrade. Enterprise can also be hosted on-premise, or on Odoo's own platforms (Odoo Online and Odoo.sh), and its upgrades are handled by Odoo's upgrade service.</p>
+<p>Community can be hosted anywhere (your own server or any cloud) and upgraded with community tools such as OpenUpgrade. Enterprise can also be hosted on-premise, or on Odoo's own platforms (Odoo Online and Odoo.sh), and its upgrades are handled by Odoo's upgrade service.</p>
 <h2>How to choose</h2>
 <ul>
 <li><strong>Choose Community</strong> if the core apps cover your needs, you want to avoid per-user licences, and you are comfortable owning hosting and upgrades with a partner.</li>
 <li><strong>Choose Enterprise</strong> if you need full accounting, Studio or the Enterprise-only apps, or you prefer Odoo to handle hosting and upgrades.</li>
 </ul>
-<p>The best approach is to list the processes you need to run, map each to an Odoo app, and see which edition covers them. Custom development can sometimes fill a gap more cheaply than licences — and sometimes the opposite is true.</p>
+<p>The best approach is to list the processes you need to run, map each to an Odoo app, and see which edition covers them. Custom development can sometimes fill a gap more cheaply than licences, and sometimes the opposite is true.</p>
 <blockquote>Not sure which edition fits? We map your processes to Odoo apps and recommend the right edition before you buy. <a href="../../contact/">Ask us</a>.</blockquote>
 ''',
     },
@@ -435,13 +435,13 @@ POSTS += [
         'date': '2026-11-10',
         'tags': ['Mobile Apps', 'Odoo Integration'],
         'body': '''
-<p>Odoo works in any mobile browser, but staff in the field — sales reps, drivers, technicians, warehouse pickers — often need something faster and simpler: big buttons, barcode scanning, offline mode. A dedicated mobile app connected to Odoo gives them exactly that. Here is what to plan before you build one.</p>
+<p>Odoo works in any mobile browser, but staff in the field (sales reps, drivers, technicians, warehouse pickers) often need something faster and simpler: big buttons, barcode scanning, offline mode. A dedicated mobile app connected to Odoo gives them exactly that. Here is what to plan before you build one.</p>
 <h2>1. Start with the user and the job</h2>
-<p>A good business app does a few jobs very well. Write down who will use it, where (in a van, a shop, a warehouse), and the three to five tasks they do most — for example "take an order", "collect a payment", "confirm a delivery". Everything else can stay in Odoo's web interface.</p>
+<p>A good business app does a few jobs very well. Write down who will use it, where (in a van, a shop, a warehouse), and the three to five tasks they do most, for example "take an order", "collect a payment", "confirm a delivery". Everything else can stay in Odoo's web interface.</p>
 <h2>2. Decide how the app talks to Odoo</h2>
 <p>Mobile apps connect to Odoo through its external API over HTTPS. Odoo 19 introduced a new <strong>JSON-2 API</strong> (<code>/json/2/&lt;model&gt;/&lt;method&gt;</code>) authenticated with API keys. The older XML-RPC and JSON-RPC endpoints are deprecated in Odoo 19 and scheduled for removal in Odoo 22, so new apps for recent versions should use JSON-2. For heavier workflows, a small custom Odoo module with dedicated endpoints keeps the app fast and the business logic on the server.</p>
 <h2>3. Plan for offline use</h2>
-<p>If users work where signal is weak, the app should store data on the device, queue changes, and sync when the connection returns. Decide early what happens when two people edit the same record — usually the server wins and the user is told.</p>
+<p>If users work where signal is weak, the app should store data on the device, queue changes, and sync when the connection returns. Decide early what happens when two people edit the same record. Usually the server wins and the user is told.</p>
 <h2>4. Respect Odoo security</h2>
 <ul>
 <li>Each user signs in with their own Odoo account, so Odoo's access rights and record rules still apply.</li>
@@ -662,7 +662,7 @@ def page_hero(crumbs, title, text, r, art=None):
 </div></section>'''
 
 
-def cta(r, title='Ready to get more out of Odoo?', text='Tell us what you need — implementation, customization, migration or a mobile app. We reply within one business day.'):
+def cta(r, title='Ready to get more out of Odoo?', text='Tell us what you need: implementation, customization, migration or a mobile app. We reply within one business day.'):
     return f'''<section><div class="container"><div class="cta reveal">
   <img class="mark" src="{r}img/logo/09_mark_white_knockout.svg" alt="" loading="lazy">
   <div><h2>{title}</h2><p>{text}</p></div>
@@ -721,7 +721,7 @@ def build_home():
     <div>
       <h1><span class="line">Many systems.</span> <span class="line accent">One platform.</span></h1>
       <p class="typed-line">Built for your <span class="typed" data-words="sales team|warehouse|finance team|field staff|managers|customers">sales team</span></p>
-      <p class="lead">Sales, inventory, accounting, manufacturing, HR and your field teams — connected on Odoo. {BRAND} implements, customizes, migrates and supports Odoo ERP, and builds the Android and iOS apps that take it on the road.</p>
+      <p class="lead">Sales, inventory, accounting, manufacturing, HR and your field teams, connected on Odoo. {BRAND} implements, customizes, migrates and supports Odoo ERP, and builds the Android and iOS apps that take it on the road.</p>
       <div class="actions">
         <a class="btn" href="contact/">Get a free consultation {icon('arrow')}</a>
         <a class="btn btn-ghost" href="odoo-services/">Explore services</a>
@@ -738,7 +738,7 @@ def build_home():
   <div class="container">
     <div class="section-head reveal"><div class="eyebrow">What we do</div>
       <h2>Complete Odoo services under one roof</h2>
-      <p>Whether you are new to Odoo, outgrowing your current setup or stuck on an old version, we cover every step — from the first workshop to years of support.</p></div>
+      <p>Whether you are new to Odoo, outgrowing your current setup or stuck on an old version, we cover every step, from the first workshop to years of support.</p></div>
     <div class="grid g3">{service_cards(r, 9)}</div>
     <p style="text-align:center;margin-top:36px"><a class="btn btn-outline" href="odoo-services/">View all Odoo services {icon('arrow')}</a></p>
   </div>
@@ -749,7 +749,7 @@ def build_home():
     <div class="reveal">
       <div class="eyebrow">Mobile App Development</div>
       <h2>Your Odoo, in your team's pocket</h2>
-      <p>We build Android and iOS apps with Flutter that work directly with your Odoo — so sales reps, drivers, warehouse staff and employees can work from anywhere, even offline.</p>
+      <p>We build Android and iOS apps with Flutter that work directly with your Odoo, so sales reps, drivers, warehouse staff and employees can work from anywhere, even offline.</p>
       <ul class="ticks">
         <li>Van sales, field sales and delivery apps</li>
         <li>Warehouse and barcode scanning apps</li>
@@ -765,7 +765,7 @@ def build_home():
 <section class="alt">
   <div class="container">
     <div class="section-head reveal"><div class="eyebrow">Odoo apps</div><h2>The Odoo apps we implement</h2>
-      <p>Start with the apps you need today and add more as you grow — they all share one database, so information is entered once and used everywhere.</p></div>
+      <p>Start with the apps you need today and add more as you grow. They all share one database, so information is entered once and used everywhere.</p></div>
     <div class="app-tiles">{odoo_apps_html()}</div>
   </div>
 </section>
@@ -781,7 +781,7 @@ def build_home():
 <section class="alt">
   <div class="container">
     <div class="section-head reveal"><div class="eyebrow">Versions</div><h2>Every Odoo version, Community &amp; Enterprise</h2>
-      <p>New implementation or a system that has been running for years — we work with the version you have.</p></div>
+      <p>New implementation or a system that has been running for years, we work with the version you have.</p></div>
     <div class="versions reveal">{versions_html}</div>
     <div class="section-head reveal" style="margin:64px auto 28px"><div class="eyebrow">Technology</div><h2 style="font-size:1.6rem">Our technology stack</h2></div>
     {tech_html()}
@@ -806,7 +806,7 @@ def build_home():
 <section class="dark">
   <div class="container">
     <div class="section-head reveal"><div class="eyebrow">Engagement models</div><h2>Work with us the way that suits you</h2>
-      <p>Choose a model for each stage of your project — and switch as your needs change.</p></div>
+      <p>Choose a model for each stage of your project, and switch as your needs change.</p></div>
     <div class="grid g3">{engagement_html()}</div>
   </div>
 </section>
@@ -838,7 +838,7 @@ def build_home():
     schema = ld({'@context': 'https://schema.org', '@type': 'WebSite', 'name': BRAND, 'url': f'{SITE_URL}/', 'publisher': {'@id': f'{SITE_URL}/#organization'}})
     schema += faq_ld(HOME_FAQ)
     return page('', f'Odoo ERP & Mobile App Development Company | {BRAND}',
-                'Odoo implementation, customization, migration, integration, hosting and support for Odoo 12 to 20 — plus Android & iOS mobile apps connected to Odoo.',
+                'Odoo implementation, customization, migration, integration, hosting and support for Odoo 12 to 20, plus Android & iOS mobile apps connected to Odoo.',
                 body, schema=schema, current='', three=True)
 
 
@@ -854,7 +854,7 @@ def build_services():
     <div class="outcome"><b>The result</b>{SERVICE_DETAIL[sid][1]}</div></div>
 </div>''' for i, (sid, ic, t, short, items) in enumerate(SERVICES))
     body = page_hero(['Odoo Services'], 'Odoo services for every stage of your ERP journey',
-                     'Implementation, customization, migration, integration, hosting, reports, localization, training and support — for Odoo 12 to 20, Community and Enterprise.', r, art='services') + f'''
+                     'Implementation, customization, migration, integration, hosting, reports, localization, training and support for Odoo 12 to 20, Community and Enterprise.', r, art='services') + f'''
 <section style="padding-bottom:20px"><div class="container"><div class="service-nav reveal">{nav}<a href="{r}mobile-app-development/">Mobile Apps</a></div></div></section>
 <section style="padding-top:20px"><div class="container">{blocks}</div></section>
 <section class="dark"><div class="container">
@@ -881,12 +881,12 @@ def build_services():
 def build_mobile():
     r = '../'
     body = page_hero(['Mobile Apps'], 'Mobile app development connected to Odoo',
-                     'Android and iOS apps built with Flutter that work directly with your Odoo — for sales, delivery, warehouse, employees and customers.', r, art='mobile') + f'''
+                     'Android and iOS apps built with Flutter that work directly with your Odoo, for sales, delivery, warehouse, employees and customers.', r, art='mobile') + f'''
 <section><div class="container split">
   <div class="reveal"><div class="eyebrow">Odoo Mobile Apps</div><h2>Take Odoo wherever your team works</h2>
     <p>Odoo's web interface is great at a desk. In a van, a warehouse aisle or a customer's shop, your team needs something faster and simpler. We design focused mobile apps for those jobs and connect them securely to your Odoo, so every order, delivery and payment lands in the ERP instantly.</p>
     <ul class="ticks"><li>Native-feeling apps for Android and iOS from one Flutter codebase</li><li>Works with Odoo 12 to 20, Community and Enterprise</li>
-      <li>Published to Google Play and the App Store — or distributed privately</li><li>Maintenance and updates for new OS and Odoo versions</li></ul>
+      <li>Published to Google Play and the App Store, or distributed privately</li><li>Maintenance and updates for new OS and Odoo versions</li></ul>
     <a class="btn" href="{r}contact/">Discuss your app {icon('arrow')}</a></div>
   <div class="reveal d1">{phones()}</div>
 </div></section>
@@ -931,7 +931,7 @@ def build_apps():
     buy = (f'<a class="btn" href="{APP_STORE_URL}" rel="noopener">View on Odoo Apps Store {icon("arrow")}</a>' if APP_STORE_URL
            else f'<a class="btn" href="mailto:{EMAIL}?subject=Sale%20Order%20Split%20app">Ask about this app {icon("arrow")}</a>')
     body = page_hero(['Odoo Apps'], 'Odoo Apps Store modules by ' + BRAND,
-                     'Small, focused Odoo apps that close common gaps quickly — maintained for the latest Odoo versions.', r, art='apps') + f'''
+                     'Small, focused Odoo apps that close common gaps quickly, maintained for the latest Odoo versions.', r, art='apps') + f'''
 <section><div class="container">
   <article class="card app-card reveal">
     <div class="media"><img src="{r}img/apps/sale-order-split-banner.gif" alt="Sale Order Split for Odoo animated preview" loading="lazy" width="1200" height="600"></div>
@@ -980,13 +980,13 @@ def build_about():
                      'An Odoo ERP and mobile app development company that helps businesses run on one connected platform.', r, art='about') + f'''
 <section><div class="container split">
   <div class="reveal"><div class="eyebrow">Who we are</div><h2>Many systems, integrating into one platform</h2>
-    <p>{LEGAL} helps businesses replace scattered spreadsheets and disconnected software with Odoo — one platform for sales, inventory, accounting, manufacturing, HR and more — and extends it to the field with mobile apps.</p>
+    <p>{LEGAL} helps businesses replace scattered spreadsheets and disconnected software with Odoo, one platform for sales, inventory, accounting, manufacturing, HR and more. We also extend it to the field with mobile apps.</p>
     <p>Our logo says it best: two planes meeting at the apex. Many systems integrating into one platform, with an upward interior for growth. Deep navy for trust; signal blue for technology.</p></div>
   <div class="reveal d1" style="text-align:center"><img src="{r}img/logo/01_primary.svg" alt="{BRAND} logo" width="519" height="300" loading="lazy" style="margin:0 auto;width:100%;max-width:440px"></div>
 </div></section>
 <section class="dark"><div class="container">
   <div class="grid g2">
-    <article class="card reveal"><div class="icon">{tile('target')}</div><h3>Our mission</h3><p>Help growing businesses run on one connected platform — so every team works from the same accurate data, in the office and in the field.</p></article>
+    <article class="card reveal"><div class="icon">{tile('target')}</div><h3>Our mission</h3><p>Help growing businesses run on one connected platform, so every team works from the same accurate data, in the office and in the field.</p></article>
     <article class="card reveal d1"><div class="icon gold">{tile('rocket')}</div><h3>Our vision</h3><p>To be the partner companies trust for Odoo and the mobile apps around it: simple to work with, honest about cost, and there for the long run.</p></article>
   </div>
 </div></section>
@@ -995,11 +995,11 @@ def build_about():
     <p>Odoo already does a great deal out of the box. We start by configuring standard features, then add apps from the Odoo ecosystem, and write custom code only for what truly makes your business different.</p>
     <p>That keeps projects faster and cheaper, and it keeps your Odoo easy to upgrade for years to come.</p></div>
   <div class="reveal d1"><ul class="ticks">
-    <li><b>Configure</b> — use standard Odoo features wherever they fit</li>
-    <li><b>Extend</b> — add proven apps from the Odoo Apps Store and OCA</li>
-    <li><b>Customize</b> — build clean custom modules for the real gaps</li>
-    <li><b>Connect</b> — integrate other systems and add mobile apps</li>
-    <li><b>Support</b> — stay with you after go-live</li></ul></div>
+    <li><b>Configure:</b> use standard Odoo features wherever they fit</li>
+    <li><b>Extend:</b> add proven apps from the Odoo Apps Store and OCA</li>
+    <li><b>Customize:</b> build clean custom modules for the real gaps</li>
+    <li><b>Connect:</b> integrate other systems and add mobile apps</li>
+    <li><b>Support:</b> stay with you after go-live</li></ul></div>
 </div></section>
 <section class="alt"><div class="container">
   <div class="section-head reveal"><div class="eyebrow">What we stand for</div><h2>Our values</h2></div>
@@ -1008,7 +1008,7 @@ def build_about():
         ('code', 'Quality you can upgrade', 'Standard, tested code that keeps your Odoo easy to upgrade.'),
         ('users', 'Honest partnership', 'Clear estimates, open communication and no surprises.'),
         ('shield', 'Long-term thinking', 'Decisions that still make sense after your next upgrade.'),
-        ('layers', 'Simplicity', 'The simplest solution that works — for users and for maintenance.'),
+        ('layers', 'Simplicity', 'The simplest solution that works, for users and for maintenance.'),
         ('support', 'Responsiveness', 'Quick, clear answers when you need help.')]))}</div>
 </div></section>
 <section><div class="container">
@@ -1071,7 +1071,7 @@ def build_contact():
 <section><div class="container contact-grid">
   <div class="reveal">
     <h2 style="font-size:1.8rem">Get in touch</h2>
-    <p>Whether it is a new Odoo implementation, a migration, a custom module or a mobile app — we are happy to help.</p>
+    <p>Whether it is a new Odoo implementation, a migration, a custom module or a mobile app, we are happy to help.</p>
     <div class="contact-item"><div class="icon">{tile('mail')}</div><div><b>Email</b><a href="mailto:{EMAIL}">{EMAIL}</a></div></div>
     <div class="contact-item"><div class="icon navy">{tile('clock')}</div><div><b>Response time</b>Within one business day</div></div>
     <div class="contact-item"><div class="icon">{tile('globe')}</div><div><b>Working with clients</b>Remote projects worldwide</div></div>
@@ -1097,7 +1097,7 @@ def build_contact():
   <div class="grid g3">{''.join(f'<article class="card reveal d{i % 3}"><div class="icon {"navy" if i == 1 else ""}">{tile(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate([
         ('mail', '1. We reply', 'Within one business day, with any questions we need answered.'),
         ('users', '2. Discovery call', 'A short call to understand your processes, systems and goals.'),
-        ('target', '3. Proposal', 'A written scope, timeline and estimate — so you can decide with confidence.')]))}</div>
+        ('target', '3. Proposal', 'A written scope, timeline and estimate, so you can decide with confidence.')]))}</div>
 </div></section>'''
     schema = breadcrumb([('', 'Home'), ('contact/', 'Contact')])
     schema += ld({'@context': 'https://schema.org', '@type': 'ContactPage', 'name': f'Contact {BRAND}', 'url': f'{SITE_URL}/contact/'})
@@ -1172,7 +1172,7 @@ self.addEventListener('fetch', e => {{
     (OUT / '.nojekyll').write_text('')   # GitHub Pages: serve files as-is, skip Jekyll
     print(f'Built {len(pages) + 2} pages into {OUT}')
     if 'your-domain.com' in SITE_URL:
-        print('NOTE: SITE_URL is still a placeholder — set your real domain in build.py before publishing.')
+        print('NOTE: SITE_URL is still a placeholder. Set your real domain in build.py before publishing.')
 
 
 if __name__ == '__main__':

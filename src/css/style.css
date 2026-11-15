@@ -76,7 +76,6 @@ p { margin: 0 0 1em; }
 .hero h1 .accent { background: linear-gradient(90deg, #8FB0FF, var(--blue-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero .lead { font-size: 1.15rem; color: #CBD5F1; max-width: 560px; }
 .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: .8rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--blue-2); margin-bottom: 18px; }
-.eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
 .hero .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
 .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
 .hero-badges span { font-size: .8rem; font-weight: 600; color: #CBD5F1; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .05); padding: 6px 14px; border-radius: 999px; }

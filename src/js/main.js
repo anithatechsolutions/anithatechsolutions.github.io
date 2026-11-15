@@ -1,4 +1,4 @@
-/* Anitha Techsolutions — site interactions: header, mobile menu, reveal, 3D tilt, contact form, install-as-app. */
+/* Anitha Techsolutions site interactions: header, mobile menu, reveal, 3D tilt, contact form, install-as-app. */
 (function () {
   var header = document.querySelector('.site-header');
   var hasHero = document.querySelector('.hero, .page-hero');
@@ -56,7 +56,7 @@
       e.preventDefault();
       if (!form.checkValidity()) { form.reportValidity(); return; }
       var f = form.elements;
-      if (f.website.value) { form.reset(); show('ok', 'Thank you — your message has been sent.'); return; } // bot
+      if (f.website.value) { form.reset(); show('ok', 'Thank you, your message has been sent.'); return; } // bot
       var data = {
         name: f.name.value, email: f.email.value, company: f.company.value || '-', phone: f.phone.value || '-',
         service: f.service.value, message: f.message.value,
