@@ -194,6 +194,14 @@ section { padding: 96px 0; }
 .price small { font-size: .9rem; color: var(--slate); font-weight: 600; }
 .badge { display: inline-block; font-size: .75rem; font-weight: 700; padding: 5px 12px; border-radius: 999px; background: var(--blue-soft); color: var(--blue); margin: 0 6px 6px 0; }
 .badge.gold { background: #F7EFDF; color: #8A6A2B; }
+.platforms .card { display: flex; flex-direction: column; padding: 36px; }
+.platforms .card .btn { align-self: flex-start; margin-top: auto; }
+.platforms .card > p { margin-bottom: 20px; }
+.platform-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+.platform-head h3 { margin: 0; font-size: 1.6rem; }
+.platform-logo { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: #fff; }
+.platform-logo img { width: 30px; height: 30px; }
+.dark .platforms .badge { background: rgba(95, 134, 255, .18); color: #C9D6FF; }
 
 /* CTA band */
 .cta { position: relative; overflow: hidden; border-radius: 28px; padding: 64px; color: #fff; background: radial-gradient(ellipse 60% 120% at 100% 0%, rgba(95, 134, 255, .55), transparent 60%), linear-gradient(120deg, var(--navy), var(--navy-3)); box-shadow: var(--shadow-lg); display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap; }

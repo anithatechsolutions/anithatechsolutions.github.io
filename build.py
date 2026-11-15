@@ -339,7 +339,7 @@ ENGAGEMENT = [
     ('support', 'Support plan (AMC)', 'Best after go-live. A monthly or yearly plan for fixes, small changes and updates.'),
 ]
 
-TECH = [('odoo', 'Odoo 12 → 20'), ('python', 'Python'), ('postgresql', 'PostgreSQL'), ('javascript', 'JavaScript / OWL'),
+TECH = [('odoo', 'Odoo 12 → 20'), ('erpnext', 'ERPNext'), ('frappe', 'Frappe Framework'), ('python', 'Python'), ('postgresql', 'PostgreSQL'), ('javascript', 'JavaScript / OWL'),
         ('flutter', 'Flutter'), ('dart', 'Dart'), ('docker', 'Docker'), ('nginx', 'Nginx'), ('ubuntu', 'Ubuntu Linux'),
         ('digitalocean', 'Cloud servers'), ('git', 'Git'), ('githubactions', 'CI / CD')]
 MOBILE_TECH = [('flutter', 'Flutter'), ('dart', 'Dart'), ('odoo', 'Odoo JSON-2 API'), ('sqlite', 'SQLite offline storage'),
@@ -353,6 +353,70 @@ HOME_FAQ += [
      'Yes. We review the existing setup and custom modules, fix what is broken, document it and continue development and support from there.'),
     ('Do you provide support after go-live?',
      'Yes. Every project includes a hypercare period after go-live, and you can continue with a monthly or yearly support plan.'),
+]
+
+# ── ERPNext (Frappe) ────────────────────────────────────────────────────────
+# (id, icon, title, short, included, who it's for, result)
+ERPNEXT_SERVICES = [
+    ('erpnext-implementation', 'rocket', 'ERPNext Implementation',
+     'Rollout of ERPNext for accounting, stock, buying, selling, manufacturing and HR, from requirement study to go-live.',
+     ['Process study and fit-gap analysis against standard ERPNext', 'Company, chart of accounts, warehouses, item and price list setup',
+      'Data import of customers, suppliers, items and opening balances', 'User roles and permissions, training, go-live and hypercare'],
+     'Growing businesses that want a full open-source ERP without per-user licence fees.',
+     'Accounts, stock, purchasing, sales and people in one ERPNext system your team knows how to use.'),
+    ('erpnext-customization', 'code', 'ERPNext Customization & Frappe App Development',
+     'Custom DocTypes, workflows, scripts and full Frappe apps, kept separate from core so upgrades stay simple.',
+     ['Custom fields, DocTypes, workflows and approval rules', 'Client scripts, server scripts and scheduled jobs',
+      'Custom Frappe apps installed alongside ERPNext', 'Web forms, portal pages and Frappe UI front ends'],
+     'Companies whose processes need more than standard ERPNext settings.',
+     'ERPNext shaped around how you work, built as a clean custom app that survives version upgrades.'),
+    ('erpnext-migration', 'upgrade', 'ERPNext Migration & Upgrade',
+     'Upgrade older ERPNext versions, or move to ERPNext from Tally, QuickBooks, spreadsheets or another ERP.',
+     ['Version upgrades with custom apps ported and tested', 'Data migration from Tally, QuickBooks, Excel and other ERPs',
+      'Patch and data-consistency checks before and after the upgrade', 'Test run on a copy, then a planned cutover'],
+     'Teams on an older ERPNext version, or switching to ERPNext from another system.',
+     'The latest ERPNext features and fixes, with your history and customizations carried over.'),
+    ('erpnext-integration', 'plug', 'ERPNext Integration',
+     'Connect ERPNext with payment gateways, online stores, couriers, banks and your own software through its REST API.',
+     ['Payment gateways such as Razorpay, Stripe and PayPal', 'Shopify, WooCommerce and marketplace order sync',
+      'Bank statement import and reconciliation', 'Custom REST API and webhook integrations'],
+     'Businesses running ERPNext next to other tools that should share data automatically.',
+     'Orders, payments and stock flow between systems without re-typing.'),
+    ('erpnext-localization', 'receipt', 'ERPNext GST & Localization',
+     'Tax setup and compliance for India and other regions, including GST, e-invoicing and e-Waybill.',
+     ['GST setup with the India Compliance app', 'e-Invoice and e-Waybill generation', 'GSTR reports and reconciliation',
+      'VAT and regional tax templates for other countries'],
+     'Indian and international businesses that must file and invoice to local rules.',
+     'Compliant invoices and tax reports straight from ERPNext.'),
+    ('erpnext-reports', 'chart', 'ERPNext Reports, Print Formats & Dashboards',
+     'Script reports, query reports, Jinja print formats and dashboards that show the numbers you actually use.',
+     ['Script and query reports', 'Custom invoice, quotation and delivery note print formats',
+      'Dashboards, number cards and charts', 'Scheduled email reports'],
+     'Teams who still export to Excel to get the report they need.',
+     'Clear documents for customers and live figures for managers, inside ERPNext.'),
+    ('erpnext-hosting', 'server', 'ERPNext Hosting & Bench Setup',
+     'Production ERPNext on Frappe Cloud, your own VPS or on-premise, with backups, SSL and monitoring.',
+     ['Frappe Bench production setup with Nginx, Redis and Supervisor', 'Docker based deployments',
+      'Automatic off-site backups and restore tests', 'Performance tuning for MariaDB, workers and background jobs'],
+     'Companies that want a fast, secure ERPNext server and someone looking after it.',
+     'A stable, backed-up ERPNext that stays fast as data grows.'),
+    ('erpnext-support', 'support', 'ERPNext Support & Maintenance (AMC)',
+     'Ongoing help after go-live: fixes, small changes, version updates and user support.',
+     ['Monthly or yearly support plans', 'Bug fixes and small enhancements', 'Minor and major version updates',
+      'Server monitoring and user support'],
+     'Businesses running ERPNext every day that need a dependable partner.',
+     'Problems solved quickly, with ERPNext kept up to date.'),
+]
+
+ERPNEXT_FAQ = [
+    ('Is ERPNext free?',
+     'ERPNext is open source under the GPLv3 licence, so there are no per-user licence fees. You pay only for implementation, customization, hosting and support. Frappe Cloud is a paid managed hosting option, or we can host it on your own server.'),
+    ('Should I choose Odoo or ERPNext?',
+     'Both are strong open-source ERPs. Odoo has a very large app ecosystem and a polished interface; its Enterprise edition adds licence fees. ERPNext is fully open source with no paid edition and is strong in accounting, stock and manufacturing. We work with both, so we recommend the one that fits your processes and budget.'),
+    ('Will customization break ERPNext upgrades?',
+     'Not if it is done right. We put customizations in a separate Frappe app and use custom fields and scripts instead of changing ERPNext core, so upgrades stay manageable.'),
+    ('Do you support GST e-invoicing in ERPNext?',
+     'Yes. We set up the India Compliance app for GST, e-invoicing, e-Waybill and GSTR reconciliation, and tax templates for other countries.'),
 ]
 
 SERVICES_FAQ = [
@@ -469,7 +533,7 @@ def tech_html(items=None, r=''):
 
 
 # ── Templates ───────────────────────────────────────────────────────────────
-NAV = [('', 'Home'), ('odoo-services/', 'Odoo Services'), ('mobile-app-development/', 'Mobile Apps'),
+NAV = [('', 'Home'), ('odoo-services/', 'Odoo Services'), ('erpnext-services/', 'ERPNext'), ('mobile-app-development/', 'Mobile Apps'),
        ('odoo-apps/', 'Odoo Apps'), ('about/', 'About'), ('blog/', 'Blog')]
 
 
@@ -561,7 +625,7 @@ def page(path, title, description, body, *, schema='', current='', og_image='img
     <div class="cols">
       <div>
         <img class="logo" src="{r}img/logo/logo-reversed.svg" alt="{BRAND}" width="226" height="100" loading="lazy">
-        <p>{TAGLINE}. We implement, customize, migrate and support Odoo, and build mobile apps that connect to it.</p>
+        <p>{TAGLINE}. We implement, customize, migrate and support Odoo and ERPNext, and build mobile apps that connect to them.</p>
         <p><a href="mailto:{EMAIL}">{EMAIL}</a></p>
       </div>
       <div>
@@ -578,6 +642,7 @@ def page(path, title, description, body, *, schema='', current='', og_image='img
       <div>
         <h4>Solutions</h4>
         <ul>
+          <li><a href="{r}erpnext-services/">ERPNext &amp; Frappe Services</a></li>
           <li><a href="{r}mobile-app-development/">Odoo Mobile Apps</a></li>
           <li><a href="{r}odoo-apps/">Odoo Apps Store Modules</a></li>
           <li><a href="{r}odoo-services/#odoo-website-ecommerce">Website &amp; eCommerce</a></li>
@@ -597,7 +662,7 @@ def page(path, title, description, body, *, schema='', current='', og_image='img
     </div>
     <div class="bottom">
       <span>&copy; <span data-year>{date.today().year}</span> {LEGAL} All rights reserved.</span>
-      <span>Odoo is a trademark of Odoo S.A. {BRAND} is an independent service provider.</span>
+      <span>Odoo is a trademark of Odoo S.A. ERPNext and Frappe are trademarks of Frappe Technologies. {BRAND} is an independent service provider.</span>
     </div>
   </div>
 </footer>
@@ -625,6 +690,7 @@ def hero_art(items, r):
 
 HERO_ART = {
     'services': [f'odoo/{a}.svg' for a in ('sales', 'inventory', 'accounting', 'manufacturing', 'crm', 'ecommerce')],
+    'erpnext': [f'icons/{a}.svg' for a in ('receipt', 'factory', 'chart', 'users', 'cart', 'server')],
     'apps': [f'odoo/{a}.svg' for a in ('sales', 'purchase', 'inventory', 'pos', 'project', 'helpdesk')],
     'mobile': [f'icons/{a}.svg' for a in ('phone', 'scan', 'map', 'bell', 'truck', 'plug')],
     'about': [f'icons/{a}.svg' for a in ('target', 'rocket', 'users', 'shield', 'globe', 'briefcase')],
@@ -706,12 +772,12 @@ def build_home():
     <div>
       <h1><span class="line">Many systems.</span> <span class="line accent">One platform.</span></h1>
       <p class="typed-line">Built for your <span class="typed" data-words="sales team|warehouse|finance team|field staff|managers|customers">sales team</span></p>
-      <p class="lead">Sales, inventory, accounting, manufacturing, HR and your field teams, connected on Odoo. {BRAND} implements, customizes, migrates and supports Odoo ERP, and builds the Android and iOS apps that take it on the road.</p>
+      <p class="lead">Sales, inventory, accounting, manufacturing, HR and your field teams, connected on Odoo or ERPNext. {BRAND} implements, customizes, migrates and supports both ERPs, and builds the Android and iOS apps that take them on the road.</p>
       <div class="actions">
         <a class="btn" href="contact/">Get a free consultation {icon('arrow')}</a>
         <a class="btn btn-ghost" href="odoo-services/">Explore services</a>
       </div>
-      <div class="hero-badges"><span>Odoo 12 → 20</span><span>Community &amp; Enterprise</span><span>Android &amp; iOS apps</span></div>
+      <div class="hero-badges"><span>Odoo 12 → 20</span><span>ERPNext &amp; Frappe</span><span>Android &amp; iOS apps</span></div>
     </div>
     <div class="hero-orbit" aria-hidden="true">
     </div>
@@ -726,6 +792,29 @@ def build_home():
       <p>Whether you are new to Odoo, outgrowing your current setup or stuck on an old version, we cover every step, from the first workshop to years of support.</p></div>
     <div class="grid g3">{service_cards(r, 9)}</div>
     <p style="text-align:center;margin-top:36px"><a class="btn btn-outline" href="odoo-services/">View all Odoo services {icon('arrow')}</a></p>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="container">
+    <div class="section-head reveal"><div class="eyebrow">Two ERP platforms</div><h2>Odoo or ERPNext, one team for both</h2>
+      <p>We are not tied to one product. We work with the two leading open-source ERPs and recommend the one that fits your processes and budget.</p></div>
+    <div class="grid g2 platforms">
+      <article class="card reveal" data-tilt>
+        <div class="platform-head"><span class="platform-logo"><img src="img/tech/odoo.svg" alt="" width="30" height="30"></span><h3>Odoo</h3><span class="badge">Community &amp; Enterprise</span></div>
+        <p>A large suite of integrated business apps with a polished interface, from CRM and sales to manufacturing and eCommerce.</p>
+        <ul class="ticks"><li>Implementation, customization and migration</li><li>Odoo 12 to 20, Community and Enterprise</li>
+          <li>Mobile apps connected to Odoo</li><li>Our own modules on the Odoo Apps Store</li></ul>
+        <a class="btn" href="odoo-services/">Odoo services {icon('arrow')}</a>
+      </article>
+      <article class="card reveal d1" data-tilt>
+        <div class="platform-head"><span class="platform-logo"><img src="img/tech/erpnext.svg" alt="" width="30" height="30"></span><h3>ERPNext</h3><span class="badge">Built on Frappe</span></div>
+        <p>A fully open-source ERP with no licence fees, strong in accounting, stock, manufacturing and Indian GST compliance.</p>
+        <ul class="ticks"><li>Implementation and data migration</li><li>Custom Frappe apps, scripts and workflows</li>
+          <li>GST, e-invoicing and e-Waybill</li><li>Frappe Cloud or self-hosted, with support plans</li></ul>
+        <a class="btn" href="erpnext-services/">ERPNext services {icon('arrow')}</a>
+      </article>
+    </div>
   </div>
 </section>
 
@@ -837,6 +926,42 @@ def build_services():
     return page('odoo-services/', 'Odoo Services: Implementation, Migration & Support',
                 'Full-cycle Odoo services: implementation, custom modules, migration to Odoo 19/20, integrations, hosting, tuning, reports, training and AMC support.',
                 body, schema=schema, current='odoo-services/')
+
+
+def build_erpnext():
+    r = '../'
+    nav = ''.join(f'<a href="#{sid}">{t.replace("ERPNext ", "", 1)}</a>' for sid, _, t, *_ in ERPNEXT_SERVICES)
+    blocks = ''.join(f'''<div class="service-block" id="{sid}">
+  <div class="reveal"><div class="icon">{tile(ic)}</div>
+    <div class="tag" style="margin-top:18px">Service {i + 1:02d}</div><h2 style="font-size:1.7rem">{t}</h2><p>{short}</p>
+    <p class="who"><b>Who it's for:</b> {who}</p>
+    <a class="btn btn-outline" href="{r}contact/">Discuss this service</a></div>
+  <div class="reveal d1"><h3>What's included</h3><ul class="ticks">{''.join(f"<li>{x}</li>" for x in items)}</ul>
+    <div class="outcome"><b>The result</b>{result}</div></div>
+</div>''' for i, (sid, ic, t, short, items, who, result) in enumerate(ERPNEXT_SERVICES))
+    body = page_hero(['ERPNext Services'], 'ERPNext &amp; Frappe services, from setup to support',
+                     'Implementation, custom Frappe apps, migration, integration, GST compliance, reports, hosting and support for ERPNext, the fully open-source ERP.', r, art='erpnext') + f'''
+<section style="padding-bottom:20px"><div class="container"><div class="service-nav reveal">{nav}</div></div></section>
+<section style="padding-top:20px"><div class="container">{blocks}</div></section>
+<section class="dark"><div class="container">
+  <div class="section-head reveal"><div class="eyebrow">Engagement models</div><h2>Flexible ways to work together</h2>
+    <p>Start with a fixed-scope project, add a dedicated developer when you need more capacity, and keep a support plan after go-live.</p></div>
+  <div class="grid g3">{engagement_html()}</div>
+</div></section>
+<section class="alt"><div class="container">
+  <div class="section-head reveal"><div class="eyebrow">FAQ</div><h2>Questions about ERPNext</h2></div>
+  {faq_block(ERPNEXT_FAQ)}
+</div></section>
+{cta(r, 'Planning an ERPNext project?', 'Tell us what you need: a new ERPNext setup, a custom Frappe app, a migration or ongoing support. We reply within one business day.')}'''
+    schema = breadcrumb([('', 'Home'), ('erpnext-services/', 'ERPNext Services')])
+    schema += faq_ld(ERPNEXT_FAQ)
+    schema += ld({'@context': 'https://schema.org', '@type': 'ItemList', 'itemListElement': [
+        {'@type': 'ListItem', 'position': i + 1, 'item': {'@type': 'Service', 'name': t, 'description': short, 'serviceType': t,
+                                                         'url': f'{SITE_URL}/erpnext-services/#{sid}', 'provider': {'@id': f'{SITE_URL}/#organization'}}}
+        for i, (sid, _, t, short, *_) in enumerate(ERPNEXT_SERVICES)]})
+    return page('erpnext-services/', 'ERPNext Services: Implementation, Frappe Development & Support',
+                'ERPNext and Frappe services: implementation, custom Frappe apps, migration, integrations, GST e-invoicing, reports, hosting and AMC support.',
+                body, schema=schema, current='erpnext-services/')
 
 
 def build_mobile():
@@ -1026,7 +1151,7 @@ def build_post(p):
 
 def build_contact():
     r = '../'
-    opts = ''.join(f'<option>{t}</option>' for _, _, t, _, _ in SERVICES) + '<option>Mobile App Development</option><option>Something else</option>'
+    opts = ''.join(f'<option>{t}</option>' for _, _, t, _, _ in SERVICES) + ''.join(f'<option>{t}</option>' for _, _, t, *_ in ERPNEXT_SERVICES) + '<option>Mobile App Development</option><option>Something else</option>'
     body = page_hero(['Contact'], "Let's talk about your project",
                      'Tell us about your business and what you need. We reply within one business day.', r, art='contact') + f'''
 <section><div class="container contact-grid">
@@ -1088,7 +1213,7 @@ def main():
         shutil.rmtree(OUT)
     shutil.copytree(SRC, OUT)
     pages = {
-        '': build_home(), 'odoo-services/': build_services(), 'mobile-app-development/': build_mobile(),
+        '': build_home(), 'odoo-services/': build_services(), 'erpnext-services/': build_erpnext(), 'mobile-app-development/': build_mobile(),
         'odoo-apps/': build_apps(), 'about/': build_about(), 'blog/': build_blog_index(), 'contact/': build_contact(),
     }
     for p in POSTS:
@@ -1097,7 +1222,7 @@ def main():
         write(path, html)
     write('404.html', build_404())
 
-    prio = {'': '1.0', 'odoo-services/': '0.9', 'mobile-app-development/': '0.9', 'odoo-apps/': '0.8', 'contact/': '0.8'}
+    prio = {'': '1.0', 'odoo-services/': '0.9', 'erpnext-services/': '0.9', 'mobile-app-development/': '0.9', 'odoo-apps/': '0.8', 'contact/': '0.8'}
     urls = ''.join(f'  <url><loc>{SITE_URL}/{p}</loc><lastmod>{UPDATED}</lastmod><priority>{prio.get(p, "0.7")}</priority></url>\n' for p in pages)
     (OUT / 'sitemap.xml').write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
     (OUT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n')
