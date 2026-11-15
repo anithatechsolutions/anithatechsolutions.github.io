@@ -70,6 +70,11 @@ def icon(name):
             f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{_P[name]}</svg>')
 
 
+def tile(name):
+    """3D icon (Microsoft Fluent Emoji, MIT) for the rounded icon tiles; @ROOT@ is resolved per page."""
+    return f'<img src="@ROOT@img/icons3d/{name}.png" alt="" width="64" height="64" loading="lazy" decoding="async">'
+
+
 # ── Content ─────────────────────────────────────────────────────────────────
 SERVICES = [
     ('odoo-implementation', 'rocket', 'Odoo Implementation',
@@ -463,7 +468,7 @@ def faq_ld(items):
 
 
 def engagement_html():
-    return ''.join(f'<article class="card reveal d{i % 3}" data-tilt><div class="icon {"navy" if i == 1 else ""}">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></article>'
+    return ''.join(f'<article class="card reveal d{i % 3}" data-tilt><div class="icon {"navy" if i == 1 else ""}">{tile(ic)}</div><h3>{t}</h3><p>{d}</p></article>'
                    for i, (ic, t, d) in enumerate(ENGAGEMENT))
 
 
@@ -504,6 +509,7 @@ def breadcrumb(items):
 def page(path, title, description, body, *, schema='', current='', og_image='img/og-image.png', three=False, og_type='website'):
     depth = path.count('/')
     r = '../' * depth                       # relative prefix back to site root
+    body = body.replace('@ROOT@', r)
     url = f'{SITE_URL}/{path}'
     cur = ' aria-current="page"'
     nav = ''.join(f'<a href="{r}{p}"{cur if p == current else ""}>{n}</a>' for p, n in NAV)
@@ -622,12 +628,37 @@ def page(path, title, description, body, *, schema='', current='', og_image='img
 '''
 
 
-def page_hero(crumbs, title, text, r):
+def hero_art(items, r):
+    """Banner visual: the Anitha mark as the hub, with the page's systems orbiting it (many systems, one platform)."""
+    n = len(items)
+    nodes = ''.join(
+        f'<span class="node" style="--a:{round(i * 360 / n - 90)}deg;--d:{i * 0.6:.1f}s"><img src="{r}img/{src}" alt="" width="44" height="44"></span>'
+        for i, src in enumerate(items))
+    return (f'<div class="hero-art" aria-hidden="true"><span class="ring r1"></span><span class="ring r2"></span>'
+            f'<span class="hub"><img src="{r}img/logo/09_mark_white_knockout.svg" alt="" width="64" height="64"></span>{nodes}</div>')
+
+
+HERO_ART = {
+    'services': [f'odoo/{a}.svg' for a in ('sales', 'inventory', 'accounting', 'manufacturing', 'crm', 'ecommerce')],
+    'apps': [f'odoo/{a}.svg' for a in ('sales', 'purchase', 'inventory', 'pos', 'project', 'helpdesk')],
+    'mobile': [f'icons3d/{a}.png' for a in ('phone', 'scan', 'map', 'bell', 'truck', 'plug')],
+    'about': [f'icons3d/{a}.png' for a in ('target', 'rocket', 'users', 'shield', 'globe', 'briefcase')],
+    'blog': [f'icons3d/{a}.png' for a in ('layers', 'chart', 'code', 'server', 'upgrade', 'school')],
+    'contact': [f'icons3d/{a}.png' for a in ('mail', 'clock', 'globe', 'users', 'briefcase', 'phone')],
+}
+
+
+def page_hero(crumbs, title, text, r, art=None):
     trail = ' / '.join([f'<a href="{r}">Home</a>'] + [escape(c) for c in crumbs])
-    return f'''<section class="page-hero"><div class="container">
-  <div class="crumbs">{trail}</div>
-  <h1>{title}</h1>
-  <p>{text}</p>
+    visual = hero_art(HERO_ART[art], r) if art else ''
+    cls = ' has-art' if art else ''
+    return f'''<section class="page-hero{cls}"><div class="container">
+  <div class="ph-text">
+    <div class="crumbs">{trail}</div>
+    <h1>{title}</h1>
+    <p>{text}</p>
+  </div>
+  {visual}
 </div></section>'''
 
 
@@ -644,7 +675,7 @@ def service_cards(r, limit=None):
     for i, (sid, ic, title, short, _) in enumerate(SERVICES[:limit] if limit else SERVICES):
         cls = 'navy' if i % 3 == 1 else ('gold' if sid == 'odoo-apps' else '')
         out.append(f'''<article class="card reveal d{i % 3}" data-tilt>
-  <div class="icon {cls}">{icon(ic)}</div>
+  <div class="icon {cls}">{tile(ic)}</div>
   <h3>{title}</h3><p>{short}</p>
   <a class="more" href="{r}odoo-services/#{sid}">Learn more &rarr;</a>
 </article>''')
@@ -760,7 +791,7 @@ def build_home():
 <section>
   <div class="container">
     <div class="section-head reveal"><div class="eyebrow">Why {BRAND}</div><h2>A partner that stays with you</h2></div>
-    <div class="grid g3">{''.join(f'<article class="card reveal d{i % 3}" data-tilt><div class="icon {"navy" if i % 2 else ""}">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate(WHY))}</div>
+    <div class="grid g3">{''.join(f'<article class="card reveal d{i % 3}" data-tilt><div class="icon {"navy" if i % 2 else ""}">{tile(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate(WHY))}</div>
   </div>
 </section>
 
@@ -768,7 +799,7 @@ def build_home():
   <div class="container">
     <div class="section-head reveal"><div class="eyebrow">Industries</div><h2>Odoo solutions for your industry</h2>
       <p>Odoo adapts to almost any business. These are some of the industries we configure it for.</p></div>
-    <div class="grid g4">{''.join(f'<div class="card reveal d{i % 3}" data-tilt style="text-align:center;padding:26px"><div class="icon" style="margin:0 auto">{icon(ic)}</div><h3 style="font-size:1.02rem">{t}</h3><p style="font-size:.9rem">{INDUSTRY_DESC[t]}</p></div>' for i, (ic, t) in enumerate(INDUSTRIES))}</div>
+    <div class="grid g4">{''.join(f'<div class="card reveal d{i % 3}" data-tilt style="text-align:center;padding:26px"><div class="icon" style="margin:0 auto">{tile(ic)}</div><h3 style="font-size:1.02rem">{t}</h3><p style="font-size:.9rem">{INDUSTRY_DESC[t]}</p></div>' for i, (ic, t) in enumerate(INDUSTRIES))}</div>
   </div>
 </section>
 
@@ -815,7 +846,7 @@ def build_services():
     r = '../'
     nav = ''.join(f'<a href="#{sid}">{t.replace("Odoo ", "", 1) if t.startswith("Odoo ") else t}</a>' for sid, _, t, _, _ in SERVICES)
     blocks = ''.join(f'''<div class="service-block" id="{sid}">
-  <div class="reveal"><div class="icon {"navy" if i % 2 else ""}">{icon(ic)}</div>
+  <div class="reveal"><div class="icon {"navy" if i % 2 else ""}">{tile(ic)}</div>
     <div class="tag" style="margin-top:18px">Service {i + 1:02d}</div><h2 style="font-size:1.7rem">{t}</h2><p>{short}</p>
     <p class="who"><b>Who it's for:</b> {SERVICE_DETAIL[sid][0]}</p>
     <a class="btn btn-outline" href="{r}contact/">Discuss this service</a></div>
@@ -823,7 +854,7 @@ def build_services():
     <div class="outcome"><b>The result</b>{SERVICE_DETAIL[sid][1]}</div></div>
 </div>''' for i, (sid, ic, t, short, items) in enumerate(SERVICES))
     body = page_hero(['Odoo Services'], 'Odoo services for every stage of your ERP journey',
-                     'Implementation, customization, migration, integration, hosting, reports, localization, training and support — for Odoo 12 to 20, Community and Enterprise.', r) + f'''
+                     'Implementation, customization, migration, integration, hosting, reports, localization, training and support — for Odoo 12 to 20, Community and Enterprise.', r, art='services') + f'''
 <section style="padding-bottom:20px"><div class="container"><div class="service-nav reveal">{nav}<a href="{r}mobile-app-development/">Mobile Apps</a></div></div></section>
 <section style="padding-top:20px"><div class="container">{blocks}</div></section>
 <section class="dark"><div class="container">
@@ -850,7 +881,7 @@ def build_services():
 def build_mobile():
     r = '../'
     body = page_hero(['Mobile Apps'], 'Mobile app development connected to Odoo',
-                     'Android and iOS apps built with Flutter that work directly with your Odoo — for sales, delivery, warehouse, employees and customers.', r) + f'''
+                     'Android and iOS apps built with Flutter that work directly with your Odoo — for sales, delivery, warehouse, employees and customers.', r, art='mobile') + f'''
 <section><div class="container split">
   <div class="reveal"><div class="eyebrow">Odoo Mobile Apps</div><h2>Take Odoo wherever your team works</h2>
     <p>Odoo's web interface is great at a desk. In a van, a warehouse aisle or a customer's shop, your team needs something faster and simpler. We design focused mobile apps for those jobs and connect them securely to your Odoo, so every order, delivery and payment lands in the ERP instantly.</p>
@@ -861,15 +892,15 @@ def build_mobile():
 </div></section>
 <section class="alt"><div class="container">
   <div class="section-head reveal"><div class="eyebrow">Use cases</div><h2>Apps we build for Odoo users</h2></div>
-  <div class="grid g3">{''.join(f'<article class="card reveal d{i % 3}" data-tilt><div class="icon {"navy" if i % 2 else ""}">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate(MOBILE_USECASES))}</div>
+  <div class="grid g3">{''.join(f'<article class="card reveal d{i % 3}" data-tilt><div class="icon {"navy" if i % 2 else ""}">{tile(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate(MOBILE_USECASES))}</div>
 </div></section>
 <section class="dark"><div class="container">
   <div class="section-head reveal"><div class="eyebrow">Features</div><h2>Built for real field conditions</h2></div>
-  <div class="grid g3">{''.join(f'<article class="card reveal d{i % 3}"><div class="icon">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate(MOBILE_FEATURES))}</div>
+  <div class="grid g3">{''.join(f'<article class="card reveal d{i % 3}"><div class="icon">{tile(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate(MOBILE_FEATURES))}</div>
 </div></section>
 <section><div class="container">
   <div class="section-head reveal"><div class="eyebrow">Process</div><h2>From idea to app store</h2></div>
-  <div class="grid g4">{''.join(f'<article class="card reveal d{i % 3}"><div class="icon {"navy" if i % 2 else ""}">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate([
+  <div class="grid g4">{''.join(f'<article class="card reveal d{i % 3}"><div class="icon {"navy" if i % 2 else ""}">{tile(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate([
         ('compass', 'Discovery', 'Who uses the app, where, and which Odoo data they need.'),
         ('layers', 'UX design', 'Simple screens designed for one-handed, on-the-go use.'),
         ('code', 'Development', 'Flutter app, Odoo API endpoints and offline sync.'),
@@ -900,7 +931,7 @@ def build_apps():
     buy = (f'<a class="btn" href="{APP_STORE_URL}" rel="noopener">View on Odoo Apps Store {icon("arrow")}</a>' if APP_STORE_URL
            else f'<a class="btn" href="mailto:{EMAIL}?subject=Sale%20Order%20Split%20app">Ask about this app {icon("arrow")}</a>')
     body = page_hero(['Odoo Apps'], 'Odoo Apps Store modules by ' + BRAND,
-                     'Small, focused Odoo apps that close common gaps quickly — maintained for the latest Odoo versions.', r) + f'''
+                     'Small, focused Odoo apps that close common gaps quickly — maintained for the latest Odoo versions.', r, art='apps') + f'''
 <section><div class="container">
   <article class="card app-card reveal">
     <div class="media"><img src="{r}img/apps/sale-order-split-banner.gif" alt="Sale Order Split for Odoo animated preview" loading="lazy" width="1200" height="600"></div>
@@ -946,7 +977,7 @@ def build_apps():
 def build_about():
     r = '../'
     body = page_hero(['About'], f'About {BRAND}',
-                     'An Odoo ERP and mobile app development company that helps businesses run on one connected platform.', r) + f'''
+                     'An Odoo ERP and mobile app development company that helps businesses run on one connected platform.', r, art='about') + f'''
 <section><div class="container split">
   <div class="reveal"><div class="eyebrow">Who we are</div><h2>Many systems, integrating into one platform</h2>
     <p>{LEGAL} helps businesses replace scattered spreadsheets and disconnected software with Odoo — one platform for sales, inventory, accounting, manufacturing, HR and more — and extends it to the field with mobile apps.</p>
@@ -955,8 +986,8 @@ def build_about():
 </div></section>
 <section class="dark"><div class="container">
   <div class="grid g2">
-    <article class="card reveal"><div class="icon">{icon('target')}</div><h3>Our mission</h3><p>Help growing businesses run on one connected platform — so every team works from the same accurate data, in the office and in the field.</p></article>
-    <article class="card reveal d1"><div class="icon gold">{icon('rocket')}</div><h3>Our vision</h3><p>To be the partner companies trust for Odoo and the mobile apps around it: simple to work with, honest about cost, and there for the long run.</p></article>
+    <article class="card reveal"><div class="icon">{tile('target')}</div><h3>Our mission</h3><p>Help growing businesses run on one connected platform — so every team works from the same accurate data, in the office and in the field.</p></article>
+    <article class="card reveal d1"><div class="icon gold">{tile('rocket')}</div><h3>Our vision</h3><p>To be the partner companies trust for Odoo and the mobile apps around it: simple to work with, honest about cost, and there for the long run.</p></article>
   </div>
 </div></section>
 <section><div class="container split">
@@ -972,7 +1003,7 @@ def build_about():
 </div></section>
 <section class="alt"><div class="container">
   <div class="section-head reveal"><div class="eyebrow">What we stand for</div><h2>Our values</h2></div>
-  <div class="grid g3">{''.join(f'<article class="card reveal d{i % 3}" data-tilt><div class="icon {"navy" if i % 2 else ""}">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate([
+  <div class="grid g3">{''.join(f'<article class="card reveal d{i % 3}" data-tilt><div class="icon {"navy" if i % 2 else ""}">{tile(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate([
         ('target', 'Business first', 'We start from your processes and goals, not from features.'),
         ('code', 'Quality you can upgrade', 'Standard, tested code that keeps your Odoo easy to upgrade.'),
         ('users', 'Honest partnership', 'Clear estimates, open communication and no surprises.'),
@@ -1003,7 +1034,7 @@ def build_blog_index():
     <h3><a href="{p["slug"]}/">{p["title"]}</a></h3><p>{p["description"]}</p>
     <a class="more" href="{p["slug"]}/">Read article &rarr;</a></div>
 </article>''' for i, p in enumerate(POSTS))
-    body = page_hero(['Blog'], 'Odoo insights &amp; guides', 'Practical articles on Odoo implementation, migration, hosting, apps and mobile.', r) + f'''
+    body = page_hero(['Blog'], 'Odoo insights &amp; guides', 'Practical articles on Odoo implementation, migration, hosting, apps and mobile.', r, art='blog') + f'''
 <section><div class="container"><div class="grid g3">{cards}</div></div></section>{cta(r)}'''
     schema = breadcrumb([('', 'Home'), ('blog/', 'Blog')])
     schema += ld({'@context': 'https://schema.org', '@type': 'Blog', 'name': f'{BRAND} Blog', 'url': f'{SITE_URL}/blog/',
@@ -1036,14 +1067,14 @@ def build_contact():
     r = '../'
     opts = ''.join(f'<option>{t}</option>' for _, _, t, _, _ in SERVICES) + '<option>Mobile App Development</option><option>Something else</option>'
     body = page_hero(['Contact'], "Let's talk about your project",
-                     'Tell us about your business and what you need. We reply within one business day.', r) + f'''
+                     'Tell us about your business and what you need. We reply within one business day.', r, art='contact') + f'''
 <section><div class="container contact-grid">
   <div class="reveal">
     <h2 style="font-size:1.8rem">Get in touch</h2>
     <p>Whether it is a new Odoo implementation, a migration, a custom module or a mobile app — we are happy to help.</p>
-    <div class="contact-item"><div class="icon">{icon('mail')}</div><div><b>Email</b><a href="mailto:{EMAIL}">{EMAIL}</a></div></div>
-    <div class="contact-item"><div class="icon navy">{icon('clock')}</div><div><b>Response time</b>Within one business day</div></div>
-    <div class="contact-item"><div class="icon">{icon('globe')}</div><div><b>Working with clients</b>Remote projects worldwide</div></div>
+    <div class="contact-item"><div class="icon">{tile('mail')}</div><div><b>Email</b><a href="mailto:{EMAIL}">{EMAIL}</a></div></div>
+    <div class="contact-item"><div class="icon navy">{tile('clock')}</div><div><b>Response time</b>Within one business day</div></div>
+    <div class="contact-item"><div class="icon">{tile('globe')}</div><div><b>Working with clients</b>Remote projects worldwide</div></div>
     <h3 style="margin-top:32px">Helpful to include</h3>
     <ul class="ticks"><li>Your industry and number of users</li><li>Current system or Odoo version and edition</li>
       <li>The processes or features you need</li><li>Your preferred timeline</li></ul>
@@ -1063,7 +1094,7 @@ def build_contact():
 </div></section>
 <section class="alt"><div class="container">
   <div class="section-head reveal"><div class="eyebrow">What happens next</div><h2>From first message to project start</h2></div>
-  <div class="grid g3">{''.join(f'<article class="card reveal d{i % 3}"><div class="icon {"navy" if i == 1 else ""}">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate([
+  <div class="grid g3">{''.join(f'<article class="card reveal d{i % 3}"><div class="icon {"navy" if i == 1 else ""}">{tile(ic)}</div><h3>{t}</h3><p>{d}</p></article>' for i, (ic, t, d) in enumerate([
         ('mail', '1. We reply', 'Within one business day, with any questions we need answered.'),
         ('users', '2. Discovery call', 'A short call to understand your processes, systems and goals.'),
         ('target', '3. Proposal', 'A written scope, timeline and estimate — so you can decide with confidence.')]))}</div>
