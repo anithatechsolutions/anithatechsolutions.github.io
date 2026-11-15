@@ -322,17 +322,6 @@ SERVICE_DETAIL = {
                   'A tested, maintained app in minutes instead of a custom project.'),
 }
 
-ODOO_APPS = [
-    ('sales', 'Sales', 'Quotations, orders and pricelists'), ('crm', 'CRM', 'Leads, pipeline and follow-ups'),
-    ('purchase', 'Purchase', 'RFQs, vendor bills and approvals'), ('inventory', 'Inventory', 'Warehouses, barcode, routes and valuation'),
-    ('accounting', 'Accounting', 'Invoicing, payments, bank and tax reports'), ('manufacturing', 'Manufacturing', 'BoMs, work orders, quality and maintenance'),
-    ('pos', 'Point of Sale', 'Shops, restaurants and offline POS'), ('employees', 'Employees & HR', 'Employees, attendance and leave'),
-    ('payroll', 'Payroll', 'Salary structures and payslips'), ('project', 'Project', 'Tasks, timesheets and billing'),
-    ('website', 'Website', 'Drag-and-drop website builder'), ('ecommerce', 'eCommerce', 'Online shop connected to stock'),
-    ('helpdesk', 'Helpdesk', 'Tickets, SLAs and customer support'), ('field-service', 'Field Service', 'On-site jobs, routes and worksheets'),
-    ('fleet', 'Fleet', 'Vehicles, contracts and costs'),
-]
-
 INDUSTRY_DESC = {
     'Trading & Distribution': 'Multi-warehouse stock, pricelists, van sales and fast invoicing.',
     'Manufacturing': 'Bills of materials, work orders, MRP planning and costing.',
@@ -477,10 +466,6 @@ def tech_html(items=None, r=''):
         f'<span class="logo-pill"><img src="{r}img/tech/{slug}.svg" alt="{name} logo" width="28" height="28" loading="lazy">{name}</span>'
         for slug, name in (items or TECH)) + '</div>'
 
-
-def odoo_apps_html():
-    return ''.join(f'<div class="app-tile reveal d{i % 3}"><img src="img/odoo/{ic}.svg" alt="Odoo {n} app icon" width="48" height="48" loading="lazy"><div><b>{n}</b><span>{d}</span></div></div>'
-                   for i, (ic, n, d) in enumerate(ODOO_APPS))
 
 
 # ── Templates ───────────────────────────────────────────────────────────────
@@ -762,14 +747,6 @@ def build_home():
   </div>
 </section>
 
-<section class="alt">
-  <div class="container">
-    <div class="section-head reveal"><div class="eyebrow">Odoo apps</div><h2>The Odoo apps we implement</h2>
-      <p>Start with the apps you need today and add more as you grow. They all share one database, so information is entered once and used everywhere.</p></div>
-    <div class="app-tiles">{odoo_apps_html()}</div>
-  </div>
-</section>
-
 <section class="dark">
   <div class="container">
     <div class="section-head reveal"><div class="eyebrow">How we work</div><h2>A clear, proven process</h2>
@@ -808,22 +785,6 @@ def build_home():
     <div class="section-head reveal"><div class="eyebrow">Engagement models</div><h2>Work with us the way that suits you</h2>
       <p>Choose a model for each stage of your project, and switch as your needs change.</p></div>
     <div class="grid g3">{engagement_html()}</div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <div class="section-head reveal"><div class="eyebrow">Our Odoo Apps</div><h2>Ready-made apps for the Odoo Apps Store</h2></div>
-    <article class="card app-card reveal" data-tilt>
-      <div class="media"><img src="img/apps/sale-order-split-banner.gif" alt="Sale Order Split app for Odoo: enter quantities, create a new quotation, keep the rest on the original" loading="lazy" width="1200" height="600"></div>
-      <div class="body">
-        <span class="badge">Odoo 18</span><span class="badge">Odoo 19</span><span class="badge">Odoo 20</span><span class="badge gold">Community &amp; Enterprise</span>
-        <h3 style="font-size:1.5rem">Sale Order Split</h3>
-        <p>Split a quotation into two orders by product quantity. Prices, discounts and taxes are kept, and both orders stay linked.</p>
-        <div class="price">$9 <small>one-time</small></div>
-        <p style="margin-top:18px"><a class="btn" href="odoo-apps/">See app details {icon('arrow')}</a></p>
-      </div>
-    </article>
   </div>
 </section>
 
