@@ -349,3 +349,53 @@ section { padding: 96px 0; }
   .app-card .body { padding: 28px; }
   .brand img { height: 46px; }
 }
+
+/* Odoo Apps store page */
+.btn-sm { padding: 10px 18px; font-size: .85rem; }
+.store-bar { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 32px; }
+.store-bar h2 { margin: 0 0 6px; }
+.store-bar p { margin: 0; color: var(--slate); }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-chip { font: inherit; font-weight: 600; font-size: .88rem; padding: 9px 18px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.filter-chip:hover { border-color: var(--blue); }
+.filter-chip.on { background: var(--navy); color: #fff; border-color: var(--navy); }
+.store-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+.store-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.store-card[hidden] { display: none; }
+.store-card .shot { display: block; aspect-ratio: 2 / 1; overflow: hidden; background: var(--navy); }
+.store-card .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.store-card:hover .shot img { transform: scale(1.04); }
+.store-body { padding: 26px 28px 28px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.store-body p { margin: 0; }
+.store-head { display: flex; align-items: center; gap: 14px; }
+.store-head img { width: 56px; height: 56px; border-radius: 14px; box-shadow: 0 6px 14px rgba(14, 27, 51, .12); flex: none; }
+.store-head h3, .store-head h2 { margin: 2px 0 0; }
+.store-head h2 { font-size: 1.6rem; }
+.store-head .cat { font-size: .74rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); }
+.store-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+.store-foot { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: auto; }
+.store-foot .price { margin: 0 auto 0 0; }
+.store-foot .more { font-weight: 700; font-size: .9rem; }
+.store-all { text-align: center; margin-top: 36px; }
+.store-all a { font-weight: 700; display: inline-flex; align-items: center; gap: 8px; }
+.store-all svg { width: 18px; height: 18px; }
+.app-detail { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; padding: 56px 0; border-top: 1px solid var(--line); scroll-margin-top: 90px; }
+.section-head + .app-detail { border-top: 0; padding-top: 8px; }
+.app-detail.flip .media { order: 2; }
+.app-detail .media img { width: 100%; height: auto; border-radius: 18px; box-shadow: var(--shadow-lg); }
+.app-detail .store-head { margin-bottom: 16px; }
+.app-detail .store-foot { margin-top: 8px; }
+.app-detail .store-foot .price { margin: 0; }
+.ticks.two-col { display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; }
+.offer { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center; }
+.offer h2 { color: #fff; }
+.offer-figure { text-align: center; padding: 36px; border-radius: 24px; background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .12); }
+.offer-figure span { display: block; font-size: 1.6rem; font-weight: 700; color: #7F8DB3; text-decoration: line-through; }
+.offer-figure b { display: block; font-size: 4.5rem; line-height: 1.1; color: var(--gold); }
+.offer-figure small { color: #CBD5F1; font-size: .95rem; }
+@media (max-width: 960px) {
+  .store-grid, .app-detail, .offer { grid-template-columns: 1fr; }
+  .app-detail { gap: 28px; padding: 40px 0; }
+  .app-detail.flip .media { order: 0; }
+}
+@media (max-width: 560px) { .ticks.two-col { grid-template-columns: 1fr; } .store-body { padding: 22px; } }

@@ -22,7 +22,6 @@ TAGLINE = 'Odoo ERP & Mobile App Development Company'
 # Contact form delivery (no backend needed). FormSubmit works with just the email address;
 # to use Formspree instead, set this to 'https://formspree.io/f/<your-form-id>'.
 FORM_ENDPOINT = f'https://formsubmit.co/ajax/{EMAIL}'
-APP_STORE_URL = ''                          # Odoo Apps Store link for Sale Order Split, once published
 UPDATED = date.today().isoformat()
 
 ROOT = Path(__file__).parent
@@ -441,13 +440,49 @@ MOBILE_FAQ = [
      'Yes. We prepare the store listings and handle submission, or set up private distribution if the app is only for your staff.'),
 ]
 
+STORE = 'https://apps.odoo.com/apps/modules'
+# Our apps on the Odoo Apps Store (https://apps.odoo.com/apps/modules/browse?search=anitha)
+APPS = [
+    {'tech': 'ats_sale_order_split', 'name': 'Sale Order Split', 'cat': 'Sales', 'price': '9',
+     'versions': [18, 19, 20],
+     'tagline': 'Split a quotation into two orders by product quantity.',
+     'desc': 'Move full or partial quantities of any product to a new quotation. The original is reduced automatically, prices, discounts and taxes are kept, and both orders stay linked.',
+     'features': ['Split by full or partial quantity per product', 'Original quotation updated automatically',
+                  'Prices, discounts and taxes kept on both orders', 'Review the split before confirming',
+                  'Split Orders smart button, Split From link and chatter log', 'Validation against over-splitting and empty orders'],
+     'guide': 'blog/split-sale-order-odoo/'},
+    {'tech': 'ats_pos_negative_stock_restrict', 'name': 'POS Negative Stock Restriction', 'cat': 'Point of Sale', 'price': '14.99',
+     'versions': [18, 19, 20],
+     'tagline': 'Stop cashiers selling stock you do not have.',
+     'desc': 'Point of Sale checks the stock at the shop\'s location the moment a product is tapped or scanned, and again before payment. Each shop can block the sale or just show a warning.',
+     'features': ['Live stock check on tap and barcode scan', 'Works with variants and combo products',
+                  'Uses the stock of the right warehouse for each shop', 'Block the sale or only warn, per POS',
+                  'Final check before payment, fair across tills', 'Clear messages for cashiers; refunds keep working']},
+    {'tech': 'ats_pos_product_price', 'name': 'POS Show Product Price', 'cat': 'Point of Sale', 'price': '5',
+     'versions': [18, 20],
+     'tagline': 'Show the price on every POS product card.',
+     'desc': 'Cashiers see each product\'s price right under its name. Prices follow the order pricelist, fiscal position and tax-included or tax-excluded display, including combos.',
+     'features': ['Price on every product card', 'Follows the active pricelist and fiscal position',
+                  'Tax-included or tax-excluded display', 'Combo products show their starting price',
+                  'Turn it on or off per POS', 'Lightweight, no slowdown at the till']},
+    {'tech': 'ats_google_tts', 'name': 'Google Text to Speech for CRM', 'cat': 'CRM', 'price': '1',
+     'versions': [18, 19, 20],
+     'tagline': 'Turn CRM lead notes into natural MP3 voice.',
+     'desc': 'Convert lead notes, a complete lead summary or any message into speech with Google Cloud Text-to-Speech. Play it in Odoo, download the MP3 or post it to the chatter.',
+     'features': ['Text to Speech button on every lead', 'Automatic spoken lead summary',
+                  'Play, download or post the MP3 to the chatter', 'Hundreds of Google voices with speed and pitch control',
+                  'Long text supported', 'Connect with an API key or a service account']},
+]
+
 APP_FAQ = [
-    ('Which Odoo versions does Sale Order Split support?',
-     'Odoo 18, 19 and 20, on both Community and Enterprise editions.'),
-    ('Can I split a confirmed sales order?',
-     'The app splits quotations (Quotation and Quotation Sent) so deliveries and invoices stay consistent. We can extend it for confirmed orders as a customization.'),
+    ('Which Odoo versions do your apps support?',
+     'All our apps are published for the latest Odoo versions. Each app card shows its exact versions; most support Odoo 18, 19 and 20, on both Community and Enterprise.'),
+    ('How do I buy and install an app?',
+     'Buy the app on the Odoo Apps Store using the button on its card. You receive the module to install on your server, or it can be deployed on Odoo.sh. Odoo Online (SaaS) does not allow third-party modules.'),
+    ('Can you change an app for my workflow?',
+     'Yes. Buy any app and get up to 60 hours of customization at a special rate. Email us with your order details and what you need.'),
     ('Do you help with installation?',
-     f'Yes. If you need help installing or configuring the app, email {EMAIL}.'),
+     f'Yes. If you need help installing or configuring an app, email {EMAIL}.'),
 ]
 
 POSTS += [
@@ -691,7 +726,7 @@ def hero_art(items, r):
 HERO_ART = {
     'services': [f'odoo/{a}.svg' for a in ('sales', 'inventory', 'accounting', 'manufacturing', 'crm', 'ecommerce')],
     'erpnext': [f'icons/{a}.svg' for a in ('receipt', 'factory', 'chart', 'users', 'cart', 'server')],
-    'apps': [f'odoo/{a}.svg' for a in ('sales', 'purchase', 'inventory', 'pos', 'project', 'helpdesk')],
+    'apps': [f'apps/{a}/icon.png' for a in ('ats_sale_order_split', 'ats_pos_negative_stock_restrict', 'ats_pos_product_price', 'ats_google_tts')],
     'mobile': [f'icons/{a}.svg' for a in ('phone', 'scan', 'map', 'bell', 'truck', 'plug')],
     'about': [f'icons/{a}.svg' for a in ('target', 'rocket', 'users', 'shield', 'globe', 'briefcase')],
     'blog': [f'icons/{a}.svg' for a in ('layers', 'chart', 'code', 'server', 'upgrade', 'school')],
@@ -1012,52 +1047,80 @@ def build_mobile():
                 body, schema=schema, current='mobile-app-development/')
 
 
+def app_card(app, i, r):
+    t = app['tech']
+    vers = ''.join(f'<span class="badge">Odoo {v}</span>' for v in app['versions'])
+    return f'''<article class="card store-card reveal d{i % 2}" data-cat="{app['cat']}">
+  <a class="shot" href="#{t}"><img src="{r}img/apps/{t}/poster.jpg" alt="{app['name']} for Odoo preview" width="800" height="400" loading="lazy"></a>
+  <div class="store-body">
+    <div class="store-head"><img src="{r}img/apps/{t}/icon.png" alt="" width="56" height="56" loading="lazy">
+      <div><span class="cat">{app['cat']}</span><h3>{app['name']}</h3></div></div>
+    <p>{app['tagline']}</p>
+    <div class="store-meta">{vers}</div>
+    <div class="store-foot"><div class="price">${app['price']}</div>
+      <a class="btn btn-sm" href="{STORE}/{max(app['versions'])}.0/{t}" target="_blank" rel="noopener">Get it on Odoo Apps</a>
+      <a class="more" href="#{t}">Details</a></div>
+  </div>
+</article>'''
+
+
+def app_detail(app, i, r):
+    t = app['tech']
+    guide = f'<a class="btn btn-outline" href="{r}{app["guide"]}">Read the guide</a>' if app.get('guide') else ''
+    return f'''<div class="app-detail{' flip' if i % 2 else ''}" id="{t}">
+  <div class="media reveal"><img src="{r}img/apps/{t}/banner.gif" alt="{app['name']} for Odoo, animated walkthrough" width="1200" height="600" loading="lazy"></div>
+  <div class="reveal d1">
+    <div class="store-head"><img src="{r}img/apps/{t}/icon.png" alt="" width="56" height="56" loading="lazy">
+      <div><span class="cat">{app['cat']} · Odoo {', '.join(str(v) for v in app['versions'])}</span><h2>{app['name']}</h2></div></div>
+    <p>{app['desc']}</p>
+    <ul class="ticks two-col">{''.join(f"<li>{x}</li>" for x in app['features'])}</ul>
+    <div class="store-foot"><div class="price">${app['price']} <small>one-time</small></div>
+      <a class="btn" href="{STORE}/{max(app['versions'])}.0/{t}" target="_blank" rel="noopener">Get it on Odoo Apps {icon('arrow')}</a>{guide}</div>
+  </div>
+</div>'''
+
+
 def build_apps():
     r = '../'
-    buy = (f'<a class="btn" href="{APP_STORE_URL}" rel="noopener">View on Odoo Apps Store {icon("arrow")}</a>' if APP_STORE_URL
-           else f'<a class="btn" href="mailto:{EMAIL}?subject=Sale%20Order%20Split%20app">Ask about this app {icon("arrow")}</a>')
-    body = page_hero(['Odoo Apps'], 'Odoo Apps Store modules by ' + BRAND,
-                     'Small, focused Odoo apps that close common gaps quickly, maintained for the latest Odoo versions.', r, art='apps') + f'''
+    cats = ['All'] + sorted({a['cat'] for a in APPS}, key=lambda c: [x['cat'] for x in APPS].index(c))
+    filters = ''.join(f'<button type="button" class="filter-chip{" on" if c == "All" else ""}" data-filter="{c}">{c}</button>' for c in cats)
+    body = page_hero(['Odoo Apps'], 'Ready-made Odoo apps by ' + BRAND,
+                     f'{len(APPS)} focused apps on the Odoo Apps Store for Sales, Point of Sale and CRM. Small modules that close common gaps, built for Odoo 18, 19 and 20.', r, art='apps') + f'''
 <section><div class="container">
-  <article class="card app-card reveal">
-    <div class="media"><img src="{r}img/apps/sale-order-split-banner.gif" alt="Sale Order Split for Odoo animated preview" loading="lazy" width="1200" height="600"></div>
-    <div class="body">
-      <span class="badge">Odoo 18</span><span class="badge">Odoo 19</span><span class="badge">Odoo 20</span><span class="badge gold">Community &amp; Enterprise</span>
-      <h2 style="font-size:1.8rem;margin-top:10px">Sale Order Split</h2>
-      <p>Split a quotation into two orders by product quantity. Choose how much of each product moves to a new quotation; the original is reduced automatically and both orders stay linked.</p>
-      <ul class="ticks"><li>Full or partial quantity per product</li><li>Prices, discounts and taxes kept on both orders</li>
-        <li>Split Orders smart button, Split From link and chatter log</li><li>Validation against over-splitting and empty orders</li></ul>
-      <div class="price">$9 <small>one-time · technical name ats_sale_order_split</small></div>
-      <p style="margin-top:18px">{buy}</p>
-    </div>
-  </article>
-</div></section>
-<section class="alt"><div class="container">
-  <div class="section-head reveal"><div class="eyebrow">Screenshots</div><h2>See it in action</h2><p>Read the step-by-step guide: <a href="{r}blog/split-sale-order-odoo/">How to split a sale order in Odoo</a>.</p></div>
-  <div class="grid g2">
-    <img class="reveal" src="{r}img/apps/split_wizard.png" alt="Split Order window with quantity to split per product" loading="lazy" width="1600" height="950" style="border-radius:14px;box-shadow:var(--shadow-lg)">
-    <img class="reveal d1" src="{r}img/apps/split_original_order.png" alt="Original quotation after splitting with Split Orders smart button" loading="lazy" width="1600" height="950" style="border-radius:14px;box-shadow:var(--shadow-lg)">
+  <div class="store-bar reveal">
+    <div><h2>Our apps</h2><p>One-time price, Community and Enterprise, maintained for new Odoo versions.</p></div>
+    <div class="chips" role="group" aria-label="Filter apps by category">{filters}</div>
   </div>
-</div></section>
-<section><div class="container">
-  <div class="section-head reveal"><div class="eyebrow">Special offer</div><h2>Buy an app, get customization at a special rate</h2>
-    <p>Purchase any of our Odoo apps and get up to 60 hours of customization for just $3/hr instead of $20/hr. <a href="mailto:{EMAIL}?subject=App%20customization%20offer">Email us</a> with your order details to claim it.</p></div>
-  <img class="reveal" src="{r}img/apps/special-offer.gif" alt="Special offer: purchase our app and get 60 hours of customization for just $3 per hour instead of $20" loading="lazy" width="1000" height="167" style="margin:0 auto;border-radius:14px;box-shadow:var(--shadow-lg)">
+  <div class="store-grid" id="store-grid">{''.join(app_card(a, i, r) for i, a in enumerate(APPS))}</div>
+  <p class="store-all reveal"><a href="https://apps.odoo.com/apps/modules/browse?search=anitha" target="_blank" rel="noopener">See all our apps on the Odoo Apps Store {icon('arrow')}</a></p>
 </div></section>
 <section class="alt"><div class="container">
+  <div class="section-head reveal"><div class="eyebrow">App details</div><h2>What each app does</h2></div>
+  {''.join(app_detail(a, i, r) for i, a in enumerate(APPS))}
+</div></section>
+<section class="dark"><div class="container offer">
+  <div class="reveal"><div class="eyebrow">Special offer</div><h2>Buy any app, get customization at $3/hr</h2>
+    <p>Purchase one of our Odoo apps and get up to 60 hours of customization for just $3 per hour instead of $20. Send us your order details to claim it.</p>
+    <a class="btn" href="mailto:{EMAIL}?subject=App%20customization%20offer">Claim the offer {icon('arrow')}</a></div>
+  <div class="offer-figure reveal d1"><span>$20</span><b>$3</b><small>per hour · up to 60 hours</small></div>
+</div></section>
+<section><div class="container">
   <div class="section-head reveal"><div class="eyebrow">FAQ</div><h2>App questions</h2></div>
   {faq_block(APP_FAQ)}
 </div></section>
 {cta(r, 'Need a custom Odoo app?', 'We build apps for your own workflow, or publish them on the Odoo Apps Store for you.')}'''
     schema = breadcrumb([('', 'Home'), ('odoo-apps/', 'Odoo Apps')])
     schema += faq_ld(APP_FAQ)
-    schema += ld({'@context': 'https://schema.org', '@type': 'SoftwareApplication', 'name': 'Sale Order Split for Odoo', 'applicationCategory': 'BusinessApplication',
-                  'operatingSystem': 'Odoo 18, Odoo 19, Odoo 20', 'description': 'Split an Odoo quotation into two sale orders by product quantity.',
-                  'image': f'{SITE_URL}/img/apps/sale-order-split-banner.gif', 'author': {'@id': f'{SITE_URL}/#organization'},
-                  'offers': {'@type': 'Offer', 'price': '9.00', 'priceCurrency': 'USD'}})
-    return page('odoo-apps/', 'Sale Order Split App for Odoo 18, 19 & 20',
-                'Sale Order Split for Odoo 18, 19 and 20: split a quotation into two orders by product quantity while keeping prices and taxes. $9 one-time.',
-                body, schema=schema, current='odoo-apps/', og_image='img/apps/split_wizard.png')
+    schema += ld({'@context': 'https://schema.org', '@type': 'ItemList', 'itemListElement': [
+        {'@type': 'ListItem', 'position': i + 1, 'item': {
+            '@type': 'SoftwareApplication', 'name': f"{a['name']} for Odoo", 'applicationCategory': 'BusinessApplication',
+            'operatingSystem': ', '.join(f'Odoo {v}' for v in a['versions']), 'description': a['desc'],
+            'image': f"{SITE_URL}/img/apps/{a['tech']}/poster.jpg", 'url': f"{STORE}/{max(a['versions'])}.0/{a['tech']}",
+            'author': {'@id': f'{SITE_URL}/#organization'},
+            'offers': {'@type': 'Offer', 'price': a['price'], 'priceCurrency': 'USD'}}} for i, a in enumerate(APPS)]})
+    return page('odoo-apps/', 'Odoo Apps: Sale Order Split, POS Stock & Price, Text to Speech',
+                f'{len(APPS)} Odoo apps by {BRAND} for Odoo 18, 19 and 20: Sale Order Split, POS Negative Stock Restriction, POS Show Product Price and Google Text to Speech for CRM.',
+                body, schema=schema, current='odoo-apps/', og_image='img/apps/ats_sale_order_split/poster.jpg')
 
 
 def build_about():

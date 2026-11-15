@@ -80,6 +80,18 @@
   }
 
 
+  // Odoo Apps page: filter cards by category
+  var chips = document.querySelectorAll('.filter-chip[data-filter]');
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var cat = chip.getAttribute('data-filter');
+      chips.forEach(function (c) { c.classList.toggle('on', c === chip); c.setAttribute('aria-pressed', c === chip); });
+      document.querySelectorAll('.store-card').forEach(function (card) {
+        card.hidden = cat !== 'All' && card.getAttribute('data-cat') !== cat;
+      });
+    });
+  });
+
   // Typing line in the hero: types a word, pauses like a person would, erases, moves on
   var typed = document.querySelector('.typed');
   if (typed && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
