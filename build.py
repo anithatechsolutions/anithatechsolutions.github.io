@@ -71,8 +71,8 @@ def icon(name):
 
 
 def tile(name):
-    """3D icon (Microsoft Fluent Emoji, MIT) for the rounded icon tiles; @ROOT@ is resolved per page."""
-    return f'<img src="@ROOT@img/icons3d/{name}.png" alt="" width="64" height="64" loading="lazy" decoding="async">'
+    """Brand duotone icon (Phosphor Icons, MIT) for the rounded icon tiles; @ROOT@ is resolved per page."""
+    return f'<img src="@ROOT@img/icons/{name}.svg" alt="" width="36" height="36" loading="lazy" decoding="async">'
 
 
 # ── Content ─────────────────────────────────────────────────────────────────
@@ -641,10 +641,10 @@ def hero_art(items, r):
 HERO_ART = {
     'services': [f'odoo/{a}.svg' for a in ('sales', 'inventory', 'accounting', 'manufacturing', 'crm', 'ecommerce')],
     'apps': [f'odoo/{a}.svg' for a in ('sales', 'purchase', 'inventory', 'pos', 'project', 'helpdesk')],
-    'mobile': [f'icons3d/{a}.png' for a in ('phone', 'scan', 'map', 'bell', 'truck', 'plug')],
-    'about': [f'icons3d/{a}.png' for a in ('target', 'rocket', 'users', 'shield', 'globe', 'briefcase')],
-    'blog': [f'icons3d/{a}.png' for a in ('layers', 'chart', 'code', 'server', 'upgrade', 'school')],
-    'contact': [f'icons3d/{a}.png' for a in ('mail', 'clock', 'globe', 'users', 'briefcase', 'phone')],
+    'mobile': [f'icons/{a}.svg' for a in ('phone', 'scan', 'map', 'bell', 'truck', 'plug')],
+    'about': [f'icons/{a}.svg' for a in ('target', 'rocket', 'users', 'shield', 'globe', 'briefcase')],
+    'blog': [f'icons/{a}.svg' for a in ('layers', 'chart', 'code', 'server', 'upgrade', 'school')],
+    'contact': [f'icons/{a}.svg' for a in ('mail', 'clock', 'globe', 'users', 'briefcase', 'phone')],
 }
 
 
